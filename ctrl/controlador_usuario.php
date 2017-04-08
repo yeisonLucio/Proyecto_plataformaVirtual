@@ -1,6 +1,6 @@
 <?php
-require_once 'usuario.entidad.php';
-require_once 'usuario.model.php';
+require_once '../modelo/usuario.entidad.php';
+require_once '../modelo/usuario.model.php';
 
 // Logica
 $alm = new Usuario();

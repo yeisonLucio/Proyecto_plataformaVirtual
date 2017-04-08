@@ -1,6 +1,6 @@
 <?php
-require_once 'curso.entidad.php';
-require_once 'curso.model.php';
+require_once '../modelo/curso.entidad.php';
+require_once '../modelo/curso.model.php';
 
 // Logica
 $alm = new Curso();

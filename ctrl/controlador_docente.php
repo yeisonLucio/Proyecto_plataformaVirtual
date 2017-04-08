@@ -1,6 +1,6 @@
 <?php
-require_once 'docente.entidad.php';
-require_once 'docente.model.php';
+require_once '../modelo/docente.entidad.php';
+require_once '../modelo/docente.model.php';
 
 // Logica
 $alm = new Docente();

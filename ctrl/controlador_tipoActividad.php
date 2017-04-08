@@ -1,6 +1,6 @@
 <?php
-require_once 'tipo_actividad.entidad.php';
-require_once 'tipo_actividad.model.php';
+require_once '../modelo/tipo_actividad.entidad.php';
+require_once '../modelo/tipo_actividad.model.php';
 
 // Logica
 $tipoAc = new TipoActividad();

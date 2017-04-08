@@ -7,7 +7,7 @@ class ActividadModel
 	{
 		try
 		{
-			$this->pdo = new PDO('mysql:host=localhost;dbname=id1114169_mydb', 'id1114169_root', 'rootroot');
+			$this->pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', '');
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);		        
 		}
 		catch(Exception $e)

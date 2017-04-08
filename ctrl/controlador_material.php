@@ -1,6 +1,6 @@
 <?php
-require_once 'materiales.entidad.php';
-require_once 'materiales.model.php';
+require_once '../modelo/materiales.entidad.php';
+require_once '../modelo/materiales.model.php';
 
 // Logica
 $material = new Material();

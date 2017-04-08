@@ -1,6 +1,6 @@
 <?php
-require_once 'actividades_has_estudiante_curso.entidad.php';
-require_once 'actividades_has_estudiante_curso.model.php';
+require_once '../modelo/actividades_has_estudiante_curso.entidad.php';
+require_once '../modelo/actividades_has_estudiante_curso.model.php';
 
 // Logica
 $alm = new Actividades_has_estudiante_curso();

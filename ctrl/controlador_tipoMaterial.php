@@ -1,6 +1,6 @@
 <?php
-require_once 'tipo_material.entidad.php';
-require_once 'tipo_material.model.php';
+require_once '../modelo/tipo_material.entidad.php';
+require_once '../modelo/tipo_material.model.php';
 
 // Logica
 $tipoM = new TipoMaterial();

@@ -1,6 +1,6 @@
 <?php
-require_once "modelo/activida.entidad.php";
-require_once "modelo/actividad.model.php";
+require_once "../modelo/activida.entidad.php";
+require_once "../modelo/actividad.model.php";
 
 // Logica
 $actividad = new Actividad();

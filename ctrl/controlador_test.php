@@ -1,7 +1,7 @@
 <?php
 
-require_once 'test.entidad.php';
-require_once 'test.modelo.php';
+require_once '../modelo/test.entidad.php';
+require_once '../modelo/test.modelo.php';
 
 // Logica
 $alm = new Test();

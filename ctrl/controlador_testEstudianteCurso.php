@@ -1,6 +1,6 @@
 <?php
-require_once 'test_estudiante_curso.entidad.php';
-require_once 'test_estudiante_curso.model.php';
+require_once '../modelo/test_estudiante_curso.entidad.php';
+require_once '../modelo/test_estudiante_curso.model.php';
 
 // Logica
 $alm = new Test_estudiante_curso();
