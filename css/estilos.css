@@ -1,0 +1,35 @@
+
+
+/**body{
+    background-image:url(https://lh5.googleusercontent.com/-MejWT-q3hKc/VATT5c-F3kI/AAAAAAAAALw/nCkQ90OjOz8/w460-h300-no/entrada-principal.jpg); 
+    background-size: 100% 100%;
+    background-attachment: fixed;
+   
+    
+}
+
+**/
+.btn-success{
+    float: right;
+    position: relative;
+    top: 50px;
+    right: 30px;
+   
+    
+}
+#resultado{
+    float:left;
+    
+}
+
+
+#area_data{
+    
+    
+}
+#listar{
+   
+}
+
+
+

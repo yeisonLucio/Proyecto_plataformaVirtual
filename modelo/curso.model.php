@@ -36,6 +36,7 @@ class CursoModel
 				
 
 				$result[] = $alm;
+                                
 			}
 
 			return $result;

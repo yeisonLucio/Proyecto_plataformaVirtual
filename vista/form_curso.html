@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FORMULARIO DEL CURSO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/estilos.css">
+    </head>
+    <body>
+        
+        <a href="#ventana1" class="btn btn-success " data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+      
+        <div class="container">
+            
+            <div class="modal fade" id="ventana1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--header de la ventana-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">AGREGAR CURSO</h4>
+                        </div>
+                        <!--contenido de la ventana-->
+                        <div class="modal-body">
+                            
+                            <form id="frm_curso" method="POST">
+                                <div class="form-group">
+                                    <label class="sr-only" for="nombre">Nombre</label>
+                                    <input class="form-control" type="text" name="Nombre" id="nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="descripcion">Descripcion</label>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Escriba una descripcion" required></textarea>
+                                </div>
+                              
+
+                            </form>
+                            
+                        </div>
+                        <div id="resultado" class="alert alert-success hidden" role="alert">
+                            <p>Se guardo correctamente</p>
+                        </div>
+                        <!-- footer de la ventana-->
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"  id="btnguardar" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <div id="area_data" class="container">
+            
+        </div>
+        <Script src="../js/jquery.js"></Script>
+        <Script src="../js/bootstrap.min.js"></Script>
+        <Script src="../ctrl/controller.js"></Script>
+        
+        
+    </body>
+</html>
