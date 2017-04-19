@@ -35,11 +35,17 @@ function guardar_curso()
                
                 $('#resultado').removeClass('hidden');
             }
+
+             listar_curso("curso"); 
             
         }
         
         });
+        
+       
    });
+  
+
 }
 
 function listar_curso(v_nombre_tabla)
@@ -66,7 +72,7 @@ function listar_curso(v_nombre_tabla)
             
             if(data !== null)
             {
-           var $log = $( "#area_data" ),
+           var $log = $( "#lista" ),
           str = data,
           html = $.parseHTML( str );
           
@@ -75,10 +81,10 @@ function listar_curso(v_nombre_tabla)
         $log.append( html );
 
         // Gather the parsed HTML's node names
-        
-                
-                   
+             
             }
+            
+            
         },
         error: function( jqXHR, textStatus, errorThrown ) 
         {

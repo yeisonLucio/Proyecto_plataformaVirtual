@@ -6,6 +6,8 @@ require_once '../modelo/curso.model.php';
 $alm = new Curso();
 $model = new CursoModel();
 
+
+
 if(isset($_REQUEST['action']))
 {
 	switch($_REQUEST['action'])
@@ -40,17 +42,28 @@ if(isset($_REQUEST['action']))
 			$alm = $model->ObtenerCurso($_REQUEST['idcurso']);
 			break;
                     
-                case 'listar':
-                foreach( $model->ListarCurso() as $r):
-                  $stm=$stm."<li id='listar'><h3>".$r->__GET('nombre')."</h3><p>".
+        case 'listar':
+        $stm='';
+            foreach( $model->ListarCurso() as $r):
+
+
+            $stm=$stm."<li id='item'><div class='pull-right'>
+        				<button type='button' value='Guardar' class='btn btn-primary'>
+                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span>
+                    	</button>
+                   		 <button type='button' onclick='' class='btn btn-danger' id='btn-cancelar'><span class='sr-only'>
+                       	 Eliminar </span><span class='glyphicon glyphicon-remove'></span>
+                   		</button></div>
+                   		<h3>".$r->__GET('nombre')."</h3><p>".
                                        $r->__GET('descripcion')."</p><p>".
-                                       $r->__GET('docente_iddocente')."</p><li>";
+                                       $r->__GET('docente_iddocente')."</p>
+                                        </li>";
                          
-                endforeach;
-                echo 'respuesta',$stm;
+            endforeach;
+            echo $stm;
                             
                
-                break;
+        break;
 	}
 }
 

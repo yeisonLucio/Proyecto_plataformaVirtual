@@ -5,7 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/estilos.css">
+         <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+        
     </head>
     <body>
         
@@ -33,14 +34,15 @@
                                     <label class="sr-only" for="descripcion">Descripcion</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Escriba una descripcion" required></textarea>
                                 </div>
-                              
+                                
 
                             </form>
                             
+                            
                         </div>
-                        <div id="resultado" class="alert alert-success hidden" role="alert">
-                            <p>Se guardo correctamente</p>
-                        </div>
+                            <div id="resultado" class="alert alert-success hidden" role="alert">
+                                 <p>Se guardo correctamente</p>
+                            </div>
                         <!-- footer de la ventana-->
                         <div class="modal-footer">
                             <button class="btn btn-primary"  id="btnguardar" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
@@ -57,11 +59,16 @@
         
         
         <div id="area_data" class="container">
+            <ol id="lista">
+                
+                
+            </ol>
             
         </div>
         <Script src="../js/jquery.js"></Script>
         <Script src="../js/bootstrap.min.js"></Script>
         <Script src="../ctrl/controller.js"></Script>
+
         
         
     </body>

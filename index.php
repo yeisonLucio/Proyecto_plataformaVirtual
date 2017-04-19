@@ -19,7 +19,7 @@
             <a href="ctrl/controlador_test.php"><button type="submit" class="pure-button pure-button-primary">Test</button></a>
             <a href="ctrl/controlador_testEstudianteCurso.php"><button type="submit" class="pure-button pure-button-primary">Test estudiante curso</button></a>
             <a href="ctrl/controlador_usuario.php"><button type="submit" class="pure-button pure-button-primary">Usuario</button></a>
-            <a href="ctrl/controlador_curso.php"><button type="submit" class="pure-button pure-button-primary">Curso</button></a>
+            <a href="vista/form_curso.html"><button type="submit" class="pure-button pure-button-primary">Curso</button></a>
             <a href="ctrl/controlador_docente.php"><button type="submit" class="pure-button pure-button-primary">Docente</button></a>
             <a href="ctrl/controlador_estudiante.php"><button type="submit" class="pure-button pure-button-primary">Estudiante</button></a>
             <a href="ctrl/controlador_estudianteCurso.php"><button type="submit" class="pure-button pure-button-primary">Estudiante Curso</button></a>
@@ -27,6 +27,7 @@
         <div >
             <img src = "http://4.bp.blogspot.com/-ceoaUgRmIZs/U_yzxLOdtvI/AAAAAAAAAI8/J3WpnlUM4Rc/s1600/ESCUDO%2BDL%2BALBAN.jpg">
         </div>
+        
 
 
     </body>

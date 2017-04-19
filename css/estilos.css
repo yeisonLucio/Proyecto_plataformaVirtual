@@ -19,17 +19,35 @@
 }
 #resultado{
     float:left;
+    position: relative;
+    left: 10px;
     
 }
-
 
 #area_data{
-    
-    
+	position: relative;
+	top: 50px;
+        
+        
+	
 }
+    
 #listar{
+	
    
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
