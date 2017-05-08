@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>FORMULARIO DEL CURSO</title>
+        <title>CURSO</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -10,32 +10,40 @@
     </head>
     <body>
         
-        <a href="#ventana1" class="btn btn-success " data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-      
+        <a href="#ventana_curso" class="btn btn-success " data-toggle="modal" id="btn_agregar_curso"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+       
         <div class="container">
             
-            <div class="modal fade" id="ventana1">
+            <div class="modal fade" id="ventana_curso" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!--header de la ventana-->
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">AGREGAR CURSO</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="cerrar_modal_curso">&times;</button>
+                            <h4 class="modal-title" id="titulo_add">AGREGAR CURSO</h4>
                         </div>
                         <!--contenido de la ventana-->
                         <div class="modal-body">
                             
                             <form id="frm_curso" method="POST">
+                                <input class="form-control  hidden" type="text" name="idcurso" id="idcurso" required>
+                                
                                 <div class="form-group">
-                                    <label class="sr-only" for="nombre">Nombre</label>
-                                    <input class="form-control" type="text" name="Nombre" id="nombre" placeholder="Nombre" required>
+                                    <label class="sr-only" for="nombre_curso">Nombre</label>
+                                    <input class="form-control" type="text" name="nombre_curso" id="nombre_curso" placeholder="Nombre" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="descripcion">Descripcion</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Escriba una descripcion" required></textarea>
                                 </div>
+                                <div class="form-group" >
+                                    <label class="sr-only" for="combo_curso">Docente</label>
+                                    <select class="form-control" name="combo_curso" id="combo_curso"  required>
+                                       
+                                    </select>
+                                    
+                                </div>
                                 
-
                             </form>
                             
                             
@@ -45,7 +53,7 @@
                             </div>
                         <!-- footer de la ventana-->
                         <div class="modal-footer">
-                            <button class="btn btn-primary"  id="btnguardar" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            <button class="btn btn-primary"  id="btn_guardar_curso" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
                             
                             
                         </div>
@@ -58,8 +66,8 @@
         
         
         
-        <div id="area_data" class="container">
-            <ol id="lista">
+        <div id="area_data_curso" class="container">
+            <ol id="lista_curso">
                 
                 
             </ol>

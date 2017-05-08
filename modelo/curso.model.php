@@ -1,4 +1,5 @@
 <?php
+
 class CursoModel
 {
 	private $pdo;
@@ -21,6 +22,8 @@ class CursoModel
 		try
 		{
 			$result = array();
+                        $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                        $stm->execute();
 
 			$stm = $this->pdo->prepare("SELECT * FROM curso");
 			$stm->execute();
@@ -34,7 +37,7 @@ class CursoModel
 				$alm->__SET('nombre', $r->nombre);
 				$alm->__SET('descripcion', $r->descripcion);
 				
-
+                                
 				$result[] = $alm;
                                 
 			}
@@ -45,14 +48,20 @@ class CursoModel
 		{
 			die($e->getMessage());
 		}
+                
 	}
+        
+        
 
 	public function ObtenerCurso($idcurso)
 	{
 		try 
 		{
-			$stm = $this->pdo
-			          ->prepare("SELECT * FROM curso WHERE idcurso = ?");
+                    $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+			$stm = $this->pdo->prepare("SELECT * FROM curso where idcurso=?");
+			
 			          
 
 			$stm->execute(array($idcurso));
@@ -60,18 +69,23 @@ class CursoModel
 
 			$alm = new Curso();
 
-			    $alm->__SET('idcurso', $r->idcurso);
+			        $alm->__SET('idcurso', $r->idcurso);
 				$alm->__SET('docente_iddocente', $r->docente_iddocente);
 				$alm->__SET('nombre', $r->nombre);
 				$alm->__SET('descripcion', $r->descripcion);
+                                
+                                $result[]=$alm;
 
-
-			return $alm;
+                        
+			return $result;
+                        
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
+                
 	}
+        
 
 	public function EliminarCurso($idcurso)
 	{
@@ -89,6 +103,7 @@ class CursoModel
 
 	public function ActualizarCurso(Curso $data)
 	{
+            $respuesta=false;
 		try 
 		{
 			$sql = "UPDATE curso SET 
@@ -98,7 +113,7 @@ class CursoModel
 						
 						WHERE idcurso = ?";
 
-			$this->pdo->prepare($sql)
+			$respuesta=$this->pdo->prepare($sql)
 			     ->execute(
 				array(
 					
@@ -112,16 +127,18 @@ class CursoModel
 		{
 			die($e->getMessage());
 		}
+                echo $respuesta;
 	}
 
 	public function RegistrarCurso(Curso $data)
 	{
+            $respuesta=false;
 		try 
 		{
 		$sql = "INSERT INTO curso (docente_iddocente,nombre,descripcion) 
 		        VALUES (?, ?, ?)";
 
-		$this->pdo->prepare($sql)
+		$respuesta=$this->pdo->prepare($sql)
 		     ->execute(
 			array(
 				$data->__GET('docente_iddocente'), 
@@ -133,5 +150,70 @@ class CursoModel
 		{
 			die($e->getMessage());
 		}
+                echo $respuesta;
 	}
+        
+        public function obtenercombo(){
+            try {
+                
+                $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                    
+			$stm = $this->pdo->prepare("SELECT * from docente d ORDER BY d.nombre ASC");
+			$stm->execute();
+                        
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				$alm = new Curso();
+
+				
+				$alm->__SET('iddocente', $r->iddocente);
+                                $alm->__SET('nombre', $r->nombre);
+                                $alm->__SET('apellido', $r->apellido);
+                                
+				
+				$result[] = $alm;
+                                
+			}
+                       
+			return $result;
+            } catch (Exception $ex) {
+                
+            }
+            
+        }
+        
+        
+        public function  cargar_valor($iddocente, $n){
+     
+      
+      $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                     
+			$stm = $this->pdo->prepare("SELECT * from docente d ORDER BY d.nombre ASC");
+			$stm->execute();
+                        $aux="";
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				
+			
+                        if ($iddocente == $r->iddocente && $n==0){
+                            
+                           $aux = "<option value=".$r->iddocente." selected=".$r->iddocente.">".$r->nombre." ".$r->apellido."</option>";
+                        }
+                         else if($iddocente == $r->iddocente && $n==1){
+                            
+                            $aux="<p>Docente: ".$r->nombre." ".$r->apellido."</p>";
+                           
+                            
+                        }
+                       
+			}
+                       
+            return $aux;
+        }
+
+        
+        
 }

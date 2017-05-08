@@ -53,16 +53,18 @@ class DocenteModel
 	{
 		try 
 		{
-			$stm = $this->pdo
-			          ->prepare("SELECT * FROM docente WHERE iddocente = ?");
-			          
+                    $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                        $stm = $this->pdo->prepare("SELECT * FROM docente WHERE iddocente = ?");
+			
 
 			$stm->execute(array($iddocente));
 			$r = $stm->fetch(PDO::FETCH_OBJ);
 
 			$alm = new Docente();
 
-			    $alm->__SET('iddocente', $r->iddocente);
+                                $alm->__SET('iddocente', $r->iddocente);
 				$alm->__SET('nombre', $r->nombre);
 				$alm->__SET('apellido', $r->apellido);
 				$alm->__SET('correo', $r->correo);
@@ -70,8 +72,10 @@ class DocenteModel
 				$alm->__SET('sexo', $r->sexo);
 				$alm->__SET('licenciatura', $r->licenciatura);
 				$alm->__SET('usuario_idusuario', $r->usuario_idusuario);
-
-			return $alm;
+                                
+                                $result[] = $alm;
+                                
+			return $result;
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
@@ -94,6 +98,7 @@ class DocenteModel
 
 	public function ActualizarDocente(Docente $data)
 	{
+            $respuesta=false;
 		try 
 		{
 			$sql = "UPDATE docente SET 
@@ -108,7 +113,7 @@ class DocenteModel
 						
 				    WHERE iddocente     = ?";
 
-			$this->pdo->prepare($sql)
+			$respuesta=$this->pdo->prepare($sql)
 			     ->execute(
 				array(
 					$data->__GET('nombre'), 
@@ -125,17 +130,21 @@ class DocenteModel
 		{
 			die($e->getMessage());
 		}
+                
+                echo $respuesta;
+                
 	}
 
 
 	public function RegistrarDocente(Docente $data)
 	{
+            $respuesta=false;
 		try 
 		{
 		$sql = "INSERT INTO docente (nombre,apellido,correo,fechaNacimiento,sexo,licenciatura,usuario_idusuario) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		$this->pdo->prepare($sql)
+		$respuesta=$this->pdo->prepare($sql)
 		     ->execute(
 			array(
 					$data->__GET('nombre'), 
@@ -151,5 +160,7 @@ class DocenteModel
 		{
 			die($e->getMessage());
 		}
+                
+                echo $respuesta;
 	}
 }

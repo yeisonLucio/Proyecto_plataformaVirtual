@@ -49,8 +49,10 @@ class Estudiante_cursoModel
 	{
 		try 
 		{
-			$stm = $this->pdo
-			          ->prepare("SELECT * FROM estudiante_curso WHERE idestudiante_curso = ?");
+                    $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+			$stm = $this->pdo->prepare("SELECT * FROM estudiante_curso WHERE idestudiante_curso = ?");
 			          
 
 			$stm->execute(array($idestudiante_curso));
@@ -58,12 +60,15 @@ class Estudiante_cursoModel
 
 			$alm = new Estudiante_curso();
 
-			   $alm->__SET('idestudiante_curso', $r->idestudiante_curso);
+			        $alm->__SET('idestudiante_curso', $r->idestudiante_curso);
 				$alm->__SET('estado', $r->estado);
 				$alm->__SET('estudiante_idestudiante', $r->estudiante_idestudiante);
 				$alm->__SET('curso_idcurso', $r->curso_idcurso);
+                                
+                            $result[]=$alm;
 
-			return $alm;
+                        
+			return $result;
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
@@ -86,6 +91,7 @@ class Estudiante_cursoModel
 
 	public function ActualizarEstudiante_curso(Estudiante_curso $data)
 	{
+            $respuesta=false;
 		try 
 		{
 			$sql = "UPDATE estudiante_curso SET 
@@ -96,7 +102,7 @@ class Estudiante_cursoModel
 						
 				    WHERE idestudiante_curso = ?";
 
-			$this->pdo->prepare($sql)
+			$respuesta=$this->pdo->prepare($sql)
 			     ->execute(
 				array(
 					$data->__GET('estado'), 
@@ -109,16 +115,18 @@ class Estudiante_cursoModel
 		{
 			die($e->getMessage());
 		}
+                echo $respuesta;
 	}
 
 	public function RegistrarEstudiante_curso(Estudiante_curso $data)
 	{
+            $respuesta=false;
 		try 
 		{
 		$sql = "INSERT INTO estudiante_curso (estado,estudiante_idestudiante,curso_idcurso) 
 		        VALUES (?, ?, ?)";
 
-		$this->pdo->prepare($sql)
+		$respuesta=$this->pdo->prepare($sql)
 		     ->execute(
 			array(
 				$data->__GET('estado'), 
@@ -130,5 +138,128 @@ class Estudiante_cursoModel
 		{
 			die($e->getMessage());
 		}
+                echo $respuesta;
 	}
+        
+        
+        public function obtenercombo_cursos(){
+            try {
+                
+                $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                    
+			$stm = $this->pdo->prepare("SELECT * from curso d ORDER BY d.nombre ASC");
+			$stm->execute();
+                        
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				$alm = new Estudiante_curso();
+
+				
+				$alm->__SET('idcurso', $r->idcurso);
+                                $alm->__SET('nombre', $r->nombre);
+                                
+                                
+				
+				$result[] = $alm;
+                                
+			}
+                       
+			return $result;
+            } catch (Exception $ex) {
+                
+            }
+            
+        }
+        public function obtenercombo_estudiantes(){
+            try {
+                
+                $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                    
+			$stm = $this->pdo->prepare("SELECT * from estudiante d ORDER BY d.nombre ASC");
+			$stm->execute();
+                        
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				$alm = new Estudiante_curso();
+
+				
+				$alm->__SET('idestudiante', $r->idestudiante);
+                                $alm->__SET('nombre', $r->nombre);
+                                $alm->__SET('apellido', $r->apellido);
+                                
+				
+				$result[] = $alm;
+                                
+			}
+                       
+			return $result;
+            } catch (Exception $ex) {
+                
+            }
+            
+        }
+        
+        
+        public function  cargar_valor_comboestudiante($idestudiante, $n){
+     
+      
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                     
+			$stm = $this->pdo->prepare("SELECT * from estudiante e ORDER BY e.nombre ASC");
+			$stm->execute();
+                        $aux="";
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				
+			
+                        if ($idestudiante == $r->idestudiante && $n==0){
+                            
+                           $aux = "<option value=".$r->idestudiante." selected=".$r->idestudiante.">".$r->nombre." ".$r->apellido."</option>";
+                        }
+                         else if($idestudiante == $r->idestudiante && $n==1){
+                            
+                            $aux="<td>".$r->nombre." ".$r->apellido."</td>";
+                           
+                            
+                        }
+                       
+			}
+                       
+            return $aux;
+        }
+        
+        public function  cargar_valor_combocurso($idcurso, $n){
+     
+      
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+                     
+			$stm = $this->pdo->prepare("SELECT * from curso c ORDER BY c.nombre ASC");
+			$stm->execute();
+                        $aux="";
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				
+			
+                        if ($idcurso == $r->idcurso && $n==0){
+                            
+                           $aux = "<option value=".$r->idcurso." selected=".$r->idcurso.">".$r->nombre."</option>";
+                        }
+                         else if($idcurso == $r->idcurso && $n==1){
+                            
+                            $aux="<td>".$r->nombre."</td>";
+                           
+                            
+                        }
+                       
+			}
+                       
+            return $aux;
+        }
+
 }

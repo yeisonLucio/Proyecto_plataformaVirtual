@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ESTUDIANTE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+         <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+         
+         <link rel="stylesheet"  href="../bootstrap-datepicker/css/bootstrap-datepicker.css">
+         
+         
+        
+    </head>
+    <body>
+        
+        <a href="#ventana_estudiante" class="btn btn-success " data-toggle="modal" id="btn_agregar_estudiante"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+       
+        <div class="container">
+            
+            <div class="modal fade" id="ventana_estudiante" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--header de la ventana-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">AGREGAR ESTUDIANTE</h4>
+                        <!--contenido de la ventana-->
+                        <div class="modal-body">
+                            
+                            <form id="frm_curso" method="POST">
+                                <input class="form-control  hidden" type="text" name="idestudiante" id="idestudiante" required>
+                                
+                                <div class="form-group">
+                                    <label class="sr-only" for="nombre_estudiante">Nombre</label>
+                                    <input class="form-control" type="text" name="nombre_estudiante" id="nombre_estudiante" placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="apellido_estudiante">Apellido</label>
+                                    <input class="form-control" type="text" name="apellido_estudiante" id="apellido_estudiante" placeholder="Apellido" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="correo_estudiante">Correo</label>
+                                    <input class="form-control" type="text" name="correo_estudiante" id="correo_estudiante" placeholder="Correo" required>
+                                </div>
+                                <div class="input-group date form-group fecha_estudiante">
+                                     <label class="sr-only" for="fecha_estudiante">Fecha</label>
+                                     <input type="text" class="form-control" id="fechaNacimiento_estudiante" placeholder="Fecha de nacimiento" ><span class="input-group-addon" >
+                                         <i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="sr-only" for="sexo_estudiante">Sexo</label>
+                                    <select class="form-control" name="sexo_estudiante" id="sexo_estudiante"  required>
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Femenino</option>
+                                    </select>
+                                    
+                                </div>
+                                <div class="form-group" >
+                                    <label class="sr-only" for="estado">Estado</label>
+                                    <select class="form-control" name="estado" id="estado"  required>
+                                        <option value="1">Retirado</option>
+                                        <option value="2">Activo</option>
+                                        <option value="3">Egresado</option>
+                                    </select>
+                                    
+                                </div>
+                                
+                                <div class="form-group" >
+                                    <label class="sr-only" for="idusuario_estudiante">Usuario</label>
+                                    <input class="form-control" type="text" name="idusuario_estudiante" id="idusuario_estudiante" placeholder="idusuario" required>
+                               
+                                </div>
+                                
+                                
+
+                            </form>
+                            
+                            
+                        </div>
+                            <div id="resultado" class="alert alert-success hidden" role="alert">
+                                 <p>Se guardo correctamente</p>
+                            </div>
+                        <!-- footer de la ventana-->
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"  id="btn_guardar_estudiante" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        
+         <div id="lista_estudiante" class="container ">
+            
+            
+        </div>
+        
+        <Script src="../js/jquery.js"></Script>
+        <script src="../bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+        <Script src="../js/bootstrap.min.js"></Script>
+        <Script src="../ctrl/controller.js"></Script>
+
+    </body>
+</html>

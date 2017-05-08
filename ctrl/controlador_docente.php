@@ -6,6 +6,17 @@ require_once '../modelo/docente.model.php';
 $alm = new Docente();
 $model = new DocenteModel();
 
+function cambiaf_a_normal($fecha){
+    ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $fecha, $mifecha);
+    $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1];
+    return $lafecha;
+}
+function cambiaf_a_mysql($fecha){
+    ereg( "([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})", $fecha, $mifecha);
+    $lafecha=$mifecha[3]."-".$mifecha[2]."-".$mifecha[1];
+    return $lafecha;
+}
+
 if(isset($_REQUEST['action']))
 {
 	switch($_REQUEST['action'])
@@ -15,142 +26,106 @@ if(isset($_REQUEST['action']))
 			$alm->__SET('nombre',                    $_REQUEST['nombre']);
                         $alm->__SET('apellido',                  $_REQUEST['apellido']);
 			$alm->__SET('correo',                    $_REQUEST['correo']);
-			$alm->__SET('fechaNacimiento',           $_REQUEST['fechaNacimiento']);
+			$alm->__SET('fechaNacimiento', cambiaf_a_mysql($_REQUEST['fechaNacimiento']));
 			$alm->__SET('sexo',                      $_REQUEST['sexo']);
 			$alm->__SET('licenciatura',              $_REQUEST['licenciatura']);
 			$alm->__SET('usuario_idusuario',         $_REQUEST['usuario_idusuario']);
 			
 
 			$model->ActualizarDocente($alm);
-			header('Location: controlador_docente.php');
+			//header('Location: controlador_docente.php');
 			break;
 
 		case 'registrar':
+                        
 			$alm->__SET('iddocente',                 $_REQUEST['iddocente']);
 			$alm->__SET('nombre',                    $_REQUEST['nombre']);
                         $alm->__SET('apellido',                  $_REQUEST['apellido']);
 			$alm->__SET('correo',                    $_REQUEST['correo']);
-			$alm->__SET('fechaNacimiento',           $_REQUEST['fechaNacimiento']);
+			$alm->__SET('fechaNacimiento', cambiaf_a_mysql($_REQUEST['fechaNacimiento']));
 			$alm->__SET('sexo',                      $_REQUEST['sexo']);
 			$alm->__SET('licenciatura',              $_REQUEST['licenciatura']);
 			$alm->__SET('usuario_idusuario',         $_REQUEST['usuario_idusuario']);
 			
 			$model->RegistrarDocente($alm);
-			header('Location: controlador_docente.php');
+			//header('Location: controlador_docente.php');
 			break;
 
 		case 'eliminar':
 			$model->EliminarDocente($_REQUEST['iddocente']);
-			header('Location: controlador_docente.php');
+			//header('Location: controlador_docente.php');
 			break;
-
+                    
+                   
+                    
 		case 'editar':
-			$alm = $model->ObtenerDocente($_REQUEST['iddocente']);
-			break;
+                   
+                    $arra=array();       
+                   
+                    foreach ( $model->ObtenerDocente($_REQUEST['iddocente']) as $r):
+                         if($r->__GET('sexo')==="1") 
+                        $sexo="<option value='1' selected>Masculino".
+                            "<option value='2'>Femenino"; 
+                    else $sexo="<option value='1'>Masculino".
+                            "<option value='2' selected>Femenino";
+                    
+                    $arra=array("iddocente"=>$r->__GET('iddocente'),
+                                "nombre"=>$r->__GET('nombre'),
+                                "apellido"=>$r->__GET('apellido'),
+                                "correo"=>$r->__GET('correo'),
+                                "fechaNacimiento"=> cambiaf_a_normal($r->__GET('fechaNacimiento')),
+                                "sexo"=>$sexo,
+                                "licenciatura"=>$r->__GET('licenciatura'),
+                                "idusuario"=>$r->__GET('usuario_idusuario')
+                                );
+                    
+                    
+                    endforeach;
+                        
+                       echo json_encode($arra);       
+
+                break;
+                
+                
+                    
+        case 'listar':
+            $i=1;
+            $stm="<table class='table table-hover table-responsive'><thead><tr class='active'><th>#</th><th >Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha de nacimiento</th><th>Sexo</th><th>Estado</th><th>id usuario</th><th>Opciones</th></tr></thead><tbody>";
+           
+            foreach( $model->ListarDocente() as $r):
+                
+                $fecha=cambiaf_a_normal($r->__GET('fechaNacimiento'));
+                
+                
+            $sexo="";
+                if($r->__GET('sexo')=="1"){
+                    $sexo="Masculino";
+                    
+                }else{
+                    $sexo="Femenino";
+                }
+               
+                        $stm.="<tr><td>".$i."</td><td>".$r->__GET('nombre')."</td><td>".$r->__GET('apellido')."</td><td>".$r->__GET('correo')."</td>
+                            <td>".$fecha."</td><td>".$sexo."</td><td>".$r->__GET('licenciatura')."</td><td>".$r->__GET('usuario_idusuario')."</td><td>
+                
+                    <button type='button' class='btn btn-primary' id='btn_editar_docente'  href='#ventana_docente' onclick=javascript:modificar_docente(".$r->__GET('iddocente').")  data-toggle='modal' >
+                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
+                    <a type='button' class='btn btn-danger' id='btn_eliminar_docente' href='javascript:eliminar_docente(".$r->__GET('iddocente').")'>
+                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+        	
+                </td></tr>";
+                    $i++;
+
+                    endforeach;
+                    $stm.="</tbody></table>";
+                  
+                    
+            echo utf8_decode($stm);
+                            
+               
+        break;
 	}
 }
 
-?>
 
-<!DOCTYPE html>
-<html lang="es">
-	<head>
-		<title>IECA</title>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-	</head>
-    <body style="padding:15px;">
-        <div> 
-        <table>
-           <td>
-           <a href="index.php"><img src = "https://cdn0.iconfinder.com/data/icons/essentials-9/128/__Home-64.png"></a>
-              </td>
-              <td>
-    	         <h1>DOCENTE</h1>
-              </td>
-           </table>
-        </div>
-        <div class="pure-g">
-            <div class="pure-u-1-12">
-                
-                <form action="?action=<?php echo $alm->iddocente> 0 ? 'actualizar' : 'registrar'; ?>" method="post" class="pure-form pure-form-stacked" style="margin-bottom:30px;">
-                    <input type="hidden" name="iddocente" value="<?php echo $alm->__GET('iddocente'); ?>" />
-                    
-                    <table style="width:500px;">
-                        <tr>
-                            <th style="text-align:left;">nombre</th>
-                            <td><input type="text" name="nombre" value="<?php echo $alm->__GET('nombre'); ?>" style="width:100%;" /></td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:left;">apellido</th>
-                            <td><input type="text" name="apellido" value="<?php echo $alm->__GET('apellido'); ?>" style="width:100%;" /></td>
-                        </tr>
-						<tr>
-                            <th style="text-align:left;">correo</th>
-                            <td><input type="text" name="correo" value="<?php echo $alm->__GET('correo'); ?>" style="width:100%;" /></td>
-                        </tr>
-						<tr>
-                            <th style="text-align:left;">fecha de Nacimiento</th>
-                            <td><input type="text" name="fechaNacimiento" value="<?php echo $alm->__GET('fechaNacimiento'); ?>" style="width:100%;" /></td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:left;">sexo</th>
-                            <td>
-                                <select name="sexo" style="width:100%;">
-                                    <option value="1" <?php echo $alm->__GET('sexo') == 1 ? 'selected' : ''; ?>>Masculino</option>
-                                    <option value="2" <?php echo $alm->__GET('sexo') == 2 ? 'selected' : ''; ?>>Femenino</option>
-                                </select>
-                            </td>
-                        </tr>
-						<tr>
-                            <th style="text-align:left;">licenciatura</th>
-                            <td><input type="text" name="licenciatura" value="<?php echo $alm->__GET('licenciatura'); ?>" style="width:100%;" /></td>
-                        </tr>
-						<tr>
-                            <th style="text-align:left;">idusuario</th>
-                            <td><input type="text" name="usuario_idusuario" value="<?php echo $alm->__GET('usuario_idusuario'); ?>" style="width:100%;" /></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <button type="submit" class="pure-button pure-button-primary">Guardar</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
 
-                <table class="pure-table pure-table-horizontal">
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;">nombre</th>
-                            <th style="text-align:left;">apellido</th>
-							<th style="text-align:left;">correo</th>
-							<th style="text-align:left;">fecha de nacimiento</th>
-						    <th style="text-align:left;">sexo</th>
-							<th style="text-align:left;">licenciatura</th>
-                            <th style="text-align:left;">idusuario</th>
-                        </tr>
-                    </thead>
-                    <?php foreach($model->ListarDocente() as $r): ?>
-                        <tr>
-                            <td><?php echo $r->__GET('nombre'); ?></td>
-                            <td><?php echo $r->__GET('apellido'); ?></td>
-							<td><?php echo $r->__GET('correo'); ?></td>
-							<td><?php echo $r->__GET('fechaNacimiento'); ?></td>
-							<td><?php echo $r->__GET('sexo'); ?></td>
-							<td><?php echo $r->__GET('licenciatura'); ?></td>
-							<td><?php echo $r->__GET('usuario_idusuario'); ?></td>
-                            
-                            <td>
-                                <a href="?action=editar&iddocente=<?php echo $r->iddocente; ?>">Editar</a>
-                            </td>
-                            <td>
-                                <a href="?action=eliminar&iddocente=<?php echo $r->iddocente; ?>">Eliminar</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>     
-              
-            </div>
-        </div>
-
-    </body>
-</html>

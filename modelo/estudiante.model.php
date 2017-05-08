@@ -53,8 +53,10 @@ class EstudianteModel
 	{
 		try 
 		{
-			$stm = $this->pdo
-			          ->prepare("SELECT * FROM estudiante WHERE idestudiante = ?");
+                        $result = array();
+                        $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                        $stm->execute();
+                            $stm = $this->pdo->prepare("SELECT * FROM estudiante WHERE idestudiante = ?");
 			          
 
 			$stm->execute(array($idestudiante));
@@ -71,7 +73,8 @@ class EstudianteModel
 				$alm->__SET('estado', $r->estado);
 				$alm->__SET('usuario_idusuario', $r->usuario_idusuario);
 
-			return $alm;
+                                $result[]=$alm;
+			return $result;
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
@@ -129,12 +132,13 @@ class EstudianteModel
 
 	public function RegistrarEstudiante(Estudiante $data)
 	{
+            $respuesta=false;
 		try 
 		{
 		$sql = "INSERT INTO estudiante (nombre,apellido,correo,fechaNacimiento,sexo,estado,usuario_idusuario) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		$this->pdo->prepare($sql)
+		$respuesta=$this->pdo->prepare($sql)
 		     ->execute(
 			array(
 				$data->__GET('nombre'), 
@@ -146,9 +150,13 @@ class EstudianteModel
 				$data->__GET('usuario_idusuario')
 				)
 			);
-		} catch (Exception $e) 
+                
+                
+		}
+                catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
+                 echo $respuesta;
 	}
 }
