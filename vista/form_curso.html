@@ -3,14 +3,14 @@
     <head>
         <title>CURSO</title>
         <meta charset="UTF-8">
+
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-         <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-        
+
+       <script type="text/javascript" src="ctrl/controller.js"></script>
     </head>
     <body>
         
-        <a href="#ventana_curso" class="btn btn-success " data-toggle="modal" id="btn_agregar_curso"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+        <a href="#ventana_curso" class="btn btn-success " data-toggle="modal" id="btn_agregar_curso" ><span class="glyphicon glyphicon-plus"></span> Agregar</a>
        
         <div class="container">
             
@@ -66,6 +66,11 @@
         
         
         
+        
+        
+        
+        
+        
         <div id="area_data_curso" class="container">
             <ol id="lista_curso">
                 
@@ -73,11 +78,69 @@
             </ol>
             
         </div>
-        <Script src="../js/jquery.js"></Script>
-        <Script src="../js/bootstrap.min.js"></Script>
-        <Script src="../ctrl/controller.js"></Script>
-
         
+        <!--===========================ventana modal modal======================================-->
+        
+        <div class="container">
+            
+            <div class="modal fade" id="ventana_agregar_estudiante" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--header de la ventana-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="titulo_add">AGREGAR</h4>
+                        </div>
+                        <!--contenido de la ventana-->
+                        <div class="modal-body">
+                            
+                            <form id="frm_estudiante_cursov" method="POST">
+                                <input class="form-control hidden " type="text" name="idestudiante_curso2" id="idestudiante_curso2" required>
+                                
+                                <div class="form-group">
+                                     <label class="sr-only" for="combo3_estudiante_curso">Estudiante</label>
+                                    <select class="form-control" name="combo3_estudiante_curso" id="combo3_estudiante_curso"  required>
+                                       
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                     <label class="sr-only" for="idcurso2">Curso</label>
+                                      <input class="form-control hidden " type="text" name="idcurso2" id="idcurso2" required>
+                                    
+                                </div>
+                                <div class="form-group" >
+                                    <label class="sr-only" for="estado_estudiante_curso2">Estado</label>
+                                    <select class="form-control" name="estado_estudiante_curso2" id="estado_estudiante_curso2"  required>
+                                        <option >--Seleccionar estado--</option>
+                                        <option value="1">Cursando</option>
+                                        <option value="2">Terminado</option>
+                                    </select>
+                                    
+                                </div>
+                                
+                            </form>
+                            
+                            
+                        </div>
+                            <div id="resultado" class="alert alert-success hidden" role="alert">
+                                 <p>Se guardo correctamente</p>
+                            </div>
+                        <!-- footer de la ventana-->
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"  id="btn_guardar_estudiante_curso2" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        
+
         
     </body>
 </html>

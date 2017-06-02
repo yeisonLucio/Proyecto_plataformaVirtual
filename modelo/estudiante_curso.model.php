@@ -74,8 +74,51 @@ class Estudiante_cursoModel
 			die($e->getMessage());
 		}
 	}
+        
+        public function Obtener_lista_estudiantes($curso_idcurso)
+	{
+		try 
+		{
+                    $result = array();
+                    $stm = $this->pdo->prepare("SET NAMES 'utf8'");
+                    $stm->execute();
+			$stm = $this->pdo->prepare("SELECT * FROM estudiante_curso WHERE curso_idcurso = ?");
+			          
+
+			$stm->execute(array($curso_idcurso));
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				$alm = new Estudiante_curso();
+
+				$alm->__SET('idestudiante_curso', $r->idestudiante_curso);
+				$alm->__SET('estado', $r->estado);
+				$alm->__SET('estudiante_idestudiante', $r->estudiante_idestudiante);
+				$alm->__SET('curso_idcurso', $r->curso_idcurso);
+				
+				$result[] = $alm;
+			}
+			return $result;
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
 
 	public function EliminarEstudiante_curso($idestudiante_curso)
+	{
+		try 
+		{
+			$stm = $this->pdo
+			          ->prepare("DELETE FROM estudiante_curso WHERE idestudiante_curso = ?");			          
+
+			$stm->execute(array($idestudiante_curso));
+		} catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
+        
+        public function EliminarEstudiante_curso2($idestudiante_curso,$idcurso)
 	{
 		try 
 		{

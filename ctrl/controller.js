@@ -1,11 +1,39 @@
 
 //investigar datepicker en jquery
-$(function(){
+$(function()
+{
+    $('#li_curso').click(function(){
+        listar("curso");
+        console.log("voy a cargar el form_curso.html");
+        $("#mostrar_datos").load('vista/form_curso.html');
+   });
+   
+   $('#li_docente').click(function(){
+        listar("docente");
+        console.log("voy a cargar el form_docente.html");
+        $("#mostrar_datos").load('vista/form_docente.html');
+   });
+   
+    $('#li_estudiante').click(function(){
+        listar("estudiante");
+        console.log("voy a cargar el form_estudiante.html");
+        $("#mostrar_datos").load('vista/form_estudiante.html');
+   });
+   
+   $('#li_estudiante_curso').click(function(){
+        listar("estudiante_curso");
+        console.log("voy a cargar el form_estudiante_curso.html");
+        $("#mostrar_datos").load('vista/form_estudiante_curso.html');
+   });
+   
+   
+   
     
-    listar("curso");
-    listar("docente");
-    listar("estudiante");
-    listar("estudiante_curso");
+   
+  
+  
+    
+    //listar("estudiante_curso");
     
     $('#btn_agregar_docente').click(function(){
         $('.fecha_docente').datepicker({
@@ -20,6 +48,7 @@ $(function(){
         });
     });
     $('#btn_agregar_curso').one('click',function(){
+        console.log("di click en el boton agregar");
         llenar_combo_tablas("curso",1);
          
         
@@ -30,8 +59,17 @@ $(function(){
          
         
     });
+//    $('#btn_agregar_estudiante_curso2').one('click',function(){
+//        console.log("di click en el boton agregar");
+//        llenar_combo_tablas("estudiante_curso",3);
+//        
+//         
+//        
+//    });
     $('#btn_agregar_curso').click(function(){
         vaciar_cajas_curso();
+        
+        
     });
     $('#btn_agregar_docente').click(function(){
         vaciar_cajas_docente();
@@ -49,6 +87,8 @@ $(function(){
         guardar_estudiante_curso();
         
     });
+    
+    
     $('#btn_guardar_docente').click(function(){
         guardar_docente();
         vaciar_cajas_docente();
@@ -62,9 +102,14 @@ $(function(){
         
     });
     
-   
+   $('#btn_guardar_estudiante_curso2').click(function(){
+       
+          guardar_estudiante_curso2();
+        
+    });
     
-});
+    });
+
 function vaciar_cajas_curso(){
     $('#idcurso').val("");
     $('#nombre_curso').val("");
@@ -122,7 +167,7 @@ function guardar_curso()
        console.log("nombre: "+nombre+" descripcion: "+descripcion+" iddocente: "+iddocente);
        $.ajax({
         type: "POST",
-        url: "../ctrl/controlador_curso.php",
+        url: "ctrl/controlador_curso.php",
         data:	{
             action: v_action,
             idcurso:idcurso,
@@ -181,7 +226,7 @@ function guardar_estudiante_curso()
        console.log("idestudiante "+idestudiante_curso+" combo_estudiante: "+combo+" combo_curso: "+combo2+" estado: "+estado);
        $.ajax({
         type: "POST",
-        url: "../ctrl/controlador_estudiante_curso.php",
+        url: "ctrl/controlador_estudiante_curso.php",
         data:	{
             action: v_action,
             idestudiante_curso:idestudiante_curso,
@@ -211,6 +256,161 @@ function guardar_estudiante_curso()
    
   
 
+}
+
+
+
+function guardar_estudiante_curso2()
+{
+   
+   
+    var v_action="";
+   
+    
+      if($('#idestudiante_curso2').val().length<1)  //Se lega por modificación de cliente
+    {
+        
+        console.log("\nSe registrara  : "  );
+        v_action="registrar";
+       
+    }
+    else{
+        console.log("se actualizara");
+        v_action = "actualizar"; 
+    }
+     
+        
+       var idestudiante_curso=$('#idestudiante_curso2').val();
+       var combo= $('#combo3_estudiante_curso').val();
+       var combo2=$('#idcurso2').val();
+       var estado=$('#estado_estudiante_curso2').val(); 
+       
+       console.log("idestudiante "+idestudiante_curso+" combo_estudiante: "+combo+" combo_curso: "+combo2+" estado: "+estado);
+       $.ajax({
+        type: "POST",
+        url: "ctrl/controlador_estudiante_curso.php",
+        data:	{
+            action: v_action,
+            idestudiante_curso:idestudiante_curso,
+            estudiante_idestudiante:combo,
+            curso_idcurso:combo2,
+            estado:estado
+            
+        },
+        dataType: 'text', 
+        beforeSend: function(data) { 
+            console.log("data enviada..."+data);
+            $('#btn_guardar_estudiante_curso2').val("Guardando...");
+        },
+        success: function(data){
+            $('#btn_guardar_estudiante_curso2').val("Guardar");
+            console.log("data :"+data);
+            if(data){
+               
+                $('#resultado').removeClass('hidden');
+            }
+
+            listar_estudiantes(combo2); 
+            
+        }
+        
+        });
+   
+  
+
+}
+
+function eliminar_estudiante_curso2(id,idcurso)
+{
+    var v_action = "eliminar";
+    
+    //cargar el controlador de la respectiva tabla
+    var v_controlador ="ctrl/controlador_estudiante_curso.php";
+    $.ajax({
+        type: "POST",
+        url: v_controlador,
+        data:	{
+            action: v_action,
+            idestudiante_curso:id
+        },
+        dataType: 'text', 
+        beforeSend: function(x) { 
+            console.log("\nv_accion: "+v_action);
+           
+        },
+        success: function(data)
+        {
+            console.log("\n!! Se eliminó el campo : " + data);
+           
+            alert("!!! El campo ha sido eliminado !!!"); 
+            
+            
+            listar_estudiantes(idcurso);  //llamo mevamente a esta funcion para que actualice el listado de clientes
+        },
+        error: function( jqXHR, textStatus, errorThrown ) 
+        {
+            if (jqXHR.status === 0) { alert('Not connect: Verify Network.');  } 
+            else if (jqXHR.status == 404) { alert('Requested page not found [404]'); } 
+                 else if (jqXHR.status == 500) { alert('Internal Server Error [500].');  } 
+                      else if (textStatus === 'parsererror') {	alert('Requested JSON parse failed.');  } 
+                           else if (textStatus === 'timeout') {alert('Time out error.');  } 
+                                 else if (textStatus === 'abort') { alert('Ajax request aborted.');  } 
+                                      else { alert('Uncaught Error: ' + jqXHR.responseText); 	}
+        },
+        complete: function() 
+        {
+                //$('#ajax-loader').hide();
+        }
+    });
+
+}
+
+function modificar_estudiante_curso2(id)
+{
+    $('#resultado').addClass('hidden');
+    
+    var v_action = "editar";
+    //cargar el controlador de la respectiva tabla
+     var v_controlador ="ctrl/controlador_estudiante_curso.php";
+    $.ajax({
+        type: "POST",
+        url: v_controlador,
+        data:	{
+            action: v_action,
+            idestudiante_curso:id
+        },
+        dataType: 'text', 
+        beforeSend: function(x) { 
+            console.log("\nv_accion: "+v_action);
+        },
+        success: function(data)
+        {
+       console.log("\n!! vamos a cargar los datos del cliente !!"+data);
+             llenar_combo_tablas("estudiante_curso",3);
+             
+            var estudiante_curso=JSON.parse(data); 
+            console.log("curso_"+estudiante_curso);
+            document.getElementById("idestudiante_curso2").value = estudiante_curso['idestudiante_curso'];
+            document.getElementById("estado_estudiante_curso2").innerHTML = estudiante_curso['estado'];
+            document.getElementById("combo3_estudiante_curso").innerHTML = estudiante_curso['idestudiante'];
+           
+           
+        },
+        error: function( jqXHR, textStatus, errorThrown ) 
+        {
+            if (jqXHR.status === 0) { alert('Not connect: Verify Network.');  } 
+            else if (jqXHR.status == 404) { alert('Requested page not found [404]'); } 
+                 else if (jqXHR.status == 500) { alert('Internal Server Error [500].');  } 
+                      else if (textStatus === 'parsererror') {	alert('Requested JSON parse failed.');  } 
+                           else if (textStatus === 'timeout') {alert('Time out error.');  } 
+                                 else if (textStatus === 'abort') { alert('Ajax request aborted.');  } 
+                                      else { alert('Uncaught Error: ' + jqXHR.responseText); 	}
+        },
+        complete: function() 
+        {
+                //$('#ajax-loader').hide();
+        }
+    });
 }
 function guardar_docente()
 {
@@ -245,7 +445,7 @@ function guardar_docente()
                +sexo+" licenciatura: "+licenciatura+" usuario: "+usuario);
        $.ajax({
         type: "POST",
-        url: "../ctrl/controlador_docente.php",
+        url: "ctrl/controlador_docente.php",
         data:	{
             action: v_action,
             iddocente:iddocente,
@@ -313,7 +513,7 @@ function guardar_estudiante()
                +sexo+" licenciatura: "+estado+" usuario: "+usuario);
        $.ajax({
         type: "POST",
-        url: "../ctrl/controlador_estudiante.php",
+        url: "ctrl/controlador_estudiante.php",
         data:	{
             action: v_action,
             idestudiante:idestudiante,
@@ -354,7 +554,8 @@ function listar(v_nombre_tabla)
      //event.preventDefault();
     var v_action = "listar";
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="../ctrl/controlador_"+v_nombre_tabla+".php";
+    //var v_controlador ="../ctrl/controlador_"+v_nombre_tabla+".php";
+    var v_controlador ="ctrl/controlador_"+v_nombre_tabla+".php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -368,7 +569,7 @@ function listar(v_nombre_tabla)
         },
         success: function(data)
         {
-            console.log("!! successsss   !!");
+            console.log("!! successsss   !!"+ data);
            
             
             if(data !== null)
@@ -410,7 +611,7 @@ function eliminar_curso(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="../ctrl/controlador_curso.php";
+    var v_controlador ="ctrl/controlador_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -452,7 +653,7 @@ function eliminar_estudiante_curso(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="../ctrl/controlador_estudiante_curso.php";
+    var v_controlador ="ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -494,7 +695,7 @@ function eliminar_estudiante(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="../ctrl/controlador_estudiante.php";
+    var v_controlador ="ctrl/controlador_estudiante.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -536,7 +737,7 @@ function eliminar_docente(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="../ctrl/controlador_docente.php";
+    var v_controlador ="ctrl/controlador_docente.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -580,7 +781,7 @@ function modificar_curso(id)
     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="../ctrl/controlador_curso.php";
+     var v_controlador ="ctrl/controlador_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -627,7 +828,7 @@ function modificar_estudiante_curso(id)
     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="../ctrl/controlador_estudiante_curso.php";
+     var v_controlador ="ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -670,6 +871,115 @@ function modificar_estudiante_curso(id)
     });
 }
 
+
+function listar_estudiantes(id)
+{
+    
+    
+    var v_action = "listar_estudiantes";
+    //cargar el controlador de la respectiva tabla
+     var v_controlador ="ctrl/controlador_estudiante_curso.php";
+    $.ajax({
+        type: "POST",
+        url: v_controlador,
+        data:	{
+            action: v_action,
+            curso_idcurso:id
+        },
+        dataType: 'text', 
+        beforeSend: function(x) { 
+            console.log("\nv_accion: "+v_action);
+        },
+        success: function(data)
+        {
+       console.log("\n!! vamos a cargar los datos del cliente !!"+data);
+             
+             
+           if(data !== null)
+            {
+                
+                
+               $('#lista_estudiantes'+id).text('');
+           var $log = $( "#lista_estudiantes"+id ),
+          str = data,
+          html = $.parseHTML( str );
+          
+        $log.append( html );
+
+        // Gather the parsed HTML's node names
+             
+            }else{
+                $('#lista_estudiantes'+id).text('');
+                 var $log = $( "#lista_estudiantes"+id ),
+          str = "<div class='alert alert-success'><p>no hay estudiantes registrados</p></div>",
+          html = $.parseHTML( str );
+          
+        $log.append( html );
+                
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown ) 
+        {
+            if (jqXHR.status === 0) { alert('Not connect: Verify Network.');  } 
+            else if (jqXHR.status == 404) { alert('Requested page not found [404]'); } 
+                 else if (jqXHR.status == 500) { alert('Internal Server Error [500].');  } 
+                      else if (textStatus === 'parsererror') {	alert('Requested JSON parse failed.');  } 
+                           else if (textStatus === 'timeout') {alert('Time out error.');  } 
+                                 else if (textStatus === 'abort') { alert('Ajax request aborted.');  } 
+                                      else { alert('Uncaught Error: ' + jqXHR.responseText); 	}
+        },
+        complete: function() 
+        {
+                //$('#ajax-loader').hide();
+        }
+    });
+}
+function cargar_curso_input(id)
+{
+   
+    
+    var v_action = "editar";
+    //cargar el controlador de la respectiva tabla
+     var v_controlador ="ctrl/controlador_curso.php";
+    $.ajax({
+        type: "POST",
+        url: v_controlador,
+        data:	{
+            action: v_action,
+            idcurso:id
+        },
+        dataType: 'text', 
+        beforeSend: function(x) { 
+            console.log("\nv_accion: "+v_action);
+        },
+        success: function(data)
+        {
+       console.log("\n!! vamos a cargar los datos del cliente !!"+data);
+            
+             
+            var curso=JSON.parse(data); 
+            console.log("curso_"+curso);
+            document.getElementById("idcurso2").value = curso['idcurso'];
+           
+        },
+        error: function( jqXHR, textStatus, errorThrown ) 
+        {
+            if (jqXHR.status === 0) { alert('Not connect: Verify Network.');  } 
+            else if (jqXHR.status == 404) { alert('Requested page not found [404]'); } 
+                 else if (jqXHR.status == 500) { alert('Internal Server Error [500].');  } 
+                      else if (textStatus === 'parsererror') {	alert('Requested JSON parse failed.');  } 
+                           else if (textStatus === 'timeout') {alert('Time out error.');  } 
+                                 else if (textStatus === 'abort') { alert('Ajax request aborted.');  } 
+                                      else { alert('Uncaught Error: ' + jqXHR.responseText); 	}
+        },
+        complete: function() 
+        {
+                //$('#ajax-loader').hide();
+        }
+    });
+}
+
+
 function modificar_docente(id)
 {
     $('#resultado').addClass('hidden');
@@ -679,7 +989,7 @@ function modificar_docente(id)
     });
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="../ctrl/controlador_docente.php";
+     var v_controlador ="ctrl/controlador_docente.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -731,7 +1041,7 @@ function modificar_estudiante(id)
     });
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="../ctrl/controlador_estudiante.php";
+     var v_controlador ="ctrl/controlador_estudiante.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -785,7 +1095,7 @@ function llenar_combo_tablas(v_tabla,op)
         var opcion=op;
 	$.ajax({
 		type: "POST",
-		url: "../ctrl/controlador_"+v_tabla+".php",
+		url: "ctrl/controlador_"+v_tabla+".php",
 		data:	{
                         action:v_accion,
                         tabla:v_tabla,
@@ -811,6 +1121,10 @@ function llenar_combo_tablas(v_tabla,op)
                            else if(opcion==1){
                             $('#combo_'+v_tabla).append(data);
                             }
+                            else if(opcion==3){
+                                $('#combo3_'+v_tabla).append(data);
+                            }
+                            
 		}
             },
 		error: function( jqXHR, textStatus, errorThrown ) 

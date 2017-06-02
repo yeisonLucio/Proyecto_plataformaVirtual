@@ -71,10 +71,14 @@ if(isset($_REQUEST['action']))
                     
         case 'listar':
         $stm='';
+            $i=0;
+           
             foreach( $model->ListarCurso() as $r):
                $iddocente=$r->__GET('docente_iddocente');
                 $docente=$model->cargar_valor($iddocente, 1);
-                
+                $i++;
+                $aux="estudiante_curso";
+                $i2=$r->__GET('idcurso');
             $stm=$stm."<li id='item'>
                 <div class='pull-right'>
                 
@@ -84,10 +88,15 @@ if(isset($_REQUEST['action']))
                         <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
         	
                 </div>
-                    <h3> Curso: ".$r->__GET('nombre')."</h3><p>Descripcion: ".
+                   <div id='texto'> <a href='#demo_".$i."'  ><h3> Curso: ".$r->__GET('nombre')."</h3></a><p>Descripcion: ".
                            $r->__GET('descripcion')."</p><p class='hidden'>".
-                           $r->__GET('docente_iddocente')."</p>".$docente."</li>";
-                         
+                           $r->__GET('docente_iddocente')."</p>".$docente."<div id='demo_".$i."' >"
+                    . "<div> <a id='btn_agregar_estudiante_curso2'href='#ventana_agregar_estudiante' onclick=javascript:llenar_combo_tablas('estudiante_curso',3);javascript:cargar_curso_input(".$r->__GET('idcurso').");  class='btn btn-success ' data-toggle='modal' ><span class='glyphicon glyphicon-plus'></span> Agregar estudiante</a>"
+                    . "</div><a href='#' data-toggle='collapse' data-target='#lista_estudiantes".$i2."' id='mostrar_estudiantes' onclick=javascript:listar_estudiantes(".$r->__GET('idcurso').")>estudiantes registrados</a></div><div class='collapse' id='lista_estudiantes".$i2."' > Lorem ipsum dolor text....</div></li>"
+                    . "</div>";
+                    
+                        
+            
             endforeach;
             echo utf8_decode($stm);
                             

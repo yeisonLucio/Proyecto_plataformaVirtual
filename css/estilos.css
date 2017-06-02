@@ -55,8 +55,6 @@
 }
 
 
-
-
 #item {
    
     box-shadow: 0 0 6px black;
@@ -71,6 +69,14 @@
     position: relative;
     top:27px;
     
+}
+
+
+
+#texto{
+    
+    
+   
 }
 
 

@@ -107,6 +107,45 @@ if(isset($_REQUEST['action']))
 
 
                 break;
+                
+                case 'listar_estudiantes':
+                    $i=1;
+                    $cont=0;
+                    $stm="<table class='table table-hover table-responsive'><thead><tr class='active'><th>#</th><th >Nombre del estudiante</th><th>Curso</th><th>Estado</th><th>Opciones</th></tr></thead><tbody>";
+                    
+                    foreach( $model->Obtener_lista_estudiantes($_REQUEST['curso_idcurso']) as $r):
+                        $idestudiante=$r->__GET('estudiante_idestudiante');
+                        $idcurso=$r->__GET('curso_idcurso');
+                        $estudiante=$model->cargar_valor_comboestudiante($idestudiante, 1);
+                        $curso=$model->cargar_valor_combocurso($idcurso, 1);
+                        $estado="";
+                        if($r->__GET('estado')=="1"){
+                            $estado="Cursando";
+
+                        }else {
+                            $estado="Terminado";
+
+                        }
+                        $cont++;
+                        $stm.="<tr><td>".$i."</td>".$estudiante."".$curso."<td>".$estado."</td><td>
+                    <button type='button' class='btn btn-primary' id='btn_editar_estudiante_curso'  href='#ventana_agregar_estudiante' onclick=javascript:modificar_estudiante_curso2(".$r->__GET('idestudiante_curso').");javascript:cargar_curso_input(".$r->__GET('curso_idcurso').");  data-toggle='modal' >
+                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
+                    <a type='button' class='btn btn-danger' id='btn_eliminar_estudiante_curso' href='javascript:eliminar_estudiante_curso2(".$r->__GET('idestudiante_curso').", ".$r->__GET('curso_idcurso').")'>
+                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+        	
+                </td></tr>";
+                    $i++;
+
+                    endforeach;
+                    $stm.="</tbody></table><p> Total estudiantes: ".$cont."</p>";
+                    echo utf8_decode($stm);
+
+                    
+                    break;
+                    case 'eliminar_estudiante':
+			$model->EliminarEstudiante_curso2($_REQUEST['idestudiante_curso'], $_REQUEST['curso_idcurso']);
+			//header('Location: controlador_estudianteCurso.php');
+			break;
         
                 case 'cargar_listbox':
                     
@@ -119,7 +158,7 @@ if(isset($_REQUEST['action']))
 
                                 case 'estudiante_curso':
 
-                                    if ($op==1){
+                                    if ($op==1 || $op==3){
                                     $arreglo=$model->obtenercombo_estudiantes();
 
                                         if (count($arreglo) > 0) {
