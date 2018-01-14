@@ -19,6 +19,7 @@ class conexion_mysql extends mysqli
            echo "<br>Fallo al connectar a MySQL: (" . $this->connect_errno . ") " . $this->connect_error;
         }
     }
+    
      /************************************************************************************************************
 	  * El método insert almacena los datos recibidos en la base de datos                                        *
 	  * retorna el id generado al realizarse la sentencia                                                        *

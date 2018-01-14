@@ -26,6 +26,14 @@ $(function()
         $("#mostrar_datos").load('vista/form_estudiante_curso.html');
    });
    
+   $('#li_reportes').click(function(){
+       
+        console.log("voy a cargar la vista de reportes.html");
+         reporte_total_estudiantesxcurso();
+        $("#mostrar_datos").load('vista/vista_reportes.html');
+       
+   });
+   
    
    
     
@@ -257,6 +265,7 @@ function guardar_estudiante_curso()
   
 
 }
+
 
 
 
@@ -1140,6 +1149,113 @@ function llenar_combo_tablas(v_tabla,op)
 		complete: function() 
 		{
 			//$('#ajax-loader').hide();
+		}
+	});
+}
+
+
+function  reporte_total_estudiantesxcurso()
+{
+	console.log("Se cargará el reporte de Total facturas x cliente");
+	sql="select c.nombre curso, count(ec.estudiante_idestudiante) total_estudiantes from estudiante_curso ec inner join curso c on ec.curso_idcurso=c.idcurso group by c.nombre";
+	alert("Se ejecutará la consulta : " + sql);
+	tit="total nuemero de estudiantes por curso";
+	drawChart_pie(tit,sql,"1");
+}
+
+function drawChart_pie(tit_reporte,v_sql,id_rep) 
+{
+	alert ("\nTitulo : " + tit_reporte + "\nv_sql : " + v_sql + "\nid_rep : " + id_rep);
+	$.ajax({
+		type: "POST",
+		url: "ctrl/reporte.php",
+		data:	{sql:v_sql},
+		dataType: 'json', 
+		beforeSend: function(x)
+		{
+		   //$('#ajax-loader').show();
+		   console.log("\nenvio : \n" + v_sql);
+		},
+		success: function(jsonData)
+		{  
+                    console.log(" "+jsonData)
+			if(jsonData != null)
+			{
+				console.log(JSON.stringify(jsonData));
+				// Create our data table out of JSON data loaded from server., dataGrafico esta definida globalmente
+				dataGrafico = new google.visualization.DataTable(jsonData);
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//  Primero configuramos los encabezados, es decir los nombres de los campos del select   //
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				dataGrafico.addColumn("string","curso");
+				dataGrafico.addColumn("number","numero estudiantes");
+				var ban=1;
+				console.log("\nvamos a recorrer el json");
+				$.each(JSON.parse(jsonData), function(i,item)
+				//$.each(jsonData, function(i,item)
+				{
+					console.log("\ni : " + i + ", item : " + item);
+					//$.each(JSON.parse(item), function(x,valor)
+					$.each(item, function(x,valor)
+					{
+						console.log("\nx : " + x + ", valor : " + valor + ", ban : " + ban);
+						//	data.addRows( [  ['Work', 11],   ['Eat', 2],  ['Commute', 2],  ['Watch TV', 2],  ['Sleep', {v:7, f:'7.000'}  ]	 ]);
+						if (ban==1)
+						{
+							campo = valor;
+							ban=2;
+						}
+						else
+						{
+							if(typeof(valor)=='string') dato=parseInt(valor);
+							else dato=valor;
+							console.log("\ncampo : " + campo +  
+										"\nvalor : " + valor + ", tipo de dato de valor: " + typeof(valor) + 
+										"\ndato : <" + dato + ">, tipo de dato de dato: " + typeof(dato));
+							dataGrafico.addRows([[campo,dato]]);
+							ban=1;
+						}
+					});
+				});
+				//var opciones = {};
+				var opciones = {
+					title: tit_reporte,
+					is3D:true,
+					//legend:cad_select_mostrar,
+					width: 1000, 
+					height: 800
+				};
+				// Instantiate and draw our chart, passing in some options.
+				   //Area de texto exlicativo de despliegue del reporte
+				//recuerda que chart esta definida global
+				var chart_div=document.getElementById('reporte' + id_rep);
+				chart = new google.visualization.PieChart(chart_div);
+				// Wait for the chart to finish drawing before calling the getImageURI() method.
+				/*
+				google.visualization.events.addListener(chart, 'ready', function () 
+				{
+					chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+					//console.log(chart_div.innerHTML);
+				});
+				*/
+				//////console.log("\ntipo de datos de chart : " + typeof(chart));
+				//chart.draw(dataGrafico, {width: 400, height: 240});
+				chart.draw(dataGrafico, opciones);
+				//$('#area_contenedor5').append("despues del grafico");
+				//document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Version para imprimir</a>';
+			}
+		},
+		error: function( jqXHR, textStatus, errorThrown ) 
+		{
+			if (jqXHR.status === 0) { alert('Not connect: Verify Network.');  } 
+			else if (jqXHR.status == 404) { alert('Requested page not found [404]'); } 
+					else if (jqXHR.status == 500) { alert('Internal Server Error [500].');  } 
+							else if (textStatus === 'parsererror') {	alert('Requested JSON parse failed.');  } 
+									else if (textStatus === 'timeout') {alert('Time out error.');  } 
+											else if (textStatus === 'abort') { alert('Ajax request aborted.');  } 
+													else { alert('Uncaught Error: ' + jqXHR.responseText); 	}
+        },
+		complete: function() 	{	//$('#ajax-loader').hide();	
 		}
 	});
 }

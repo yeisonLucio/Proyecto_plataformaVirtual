@@ -9,6 +9,12 @@
 }
 
 **/
+/* make sidebar nav vertical */ 
+
+
+
+
+
 #btn_agregar_curso,#btn_agregar_docente,#btn_agregar_estudiante,#btn_agregar_estudiante_curso{
     float: right;
     position: relative;

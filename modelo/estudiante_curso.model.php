@@ -118,19 +118,6 @@ class Estudiante_cursoModel
 		}
 	}
         
-        public function EliminarEstudiante_curso2($idestudiante_curso,$idcurso)
-	{
-		try 
-		{
-			$stm = $this->pdo
-			          ->prepare("DELETE FROM estudiante_curso WHERE idestudiante_curso = ?");			          
-
-			$stm->execute(array($idestudiante_curso));
-		} catch (Exception $e) 
-		{
-			die($e->getMessage());
-		}
-	}
 
 	public function ActualizarEstudiante_curso(Estudiante_curso $data)
 	{

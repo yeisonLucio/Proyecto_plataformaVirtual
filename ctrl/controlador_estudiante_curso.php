@@ -142,10 +142,7 @@ if(isset($_REQUEST['action']))
 
                     
                     break;
-                    case 'eliminar_estudiante':
-			$model->EliminarEstudiante_curso2($_REQUEST['idestudiante_curso'], $_REQUEST['curso_idcurso']);
-			//header('Location: controlador_estudianteCurso.php');
-			break;
+                    
         
                 case 'cargar_listbox':
                     

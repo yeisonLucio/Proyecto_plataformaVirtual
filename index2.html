@@ -6,6 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <link rel="stylesheet" href="css/bootstrap.min.css">
          <link rel="stylesheet" type="text/css" href="css/estilos.css">
+               <!--carga la graph API de google -->
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        // Set a callback to run when the Google Visualization API is loaded. 
+		//Load the Visualization API and the piechart package (corechart) and table package para las tablas. 
+		google.charts.load('current', {'packages':['corechart','table']});
+		//google.charts.load('current', {'packages':['table']});
+		//carga paquete table para graficos tipo tabla de datos
+      </script>
          
     </head>
     <body>
@@ -38,8 +47,9 @@
                                 <li><a href="#">material</a></li>
                                 <li><a href="#">tes</a></li>
                                 <li><a href="#">tesestudiantecurso</a></li>
-                                <li><a href="#">tipoactividad</a></li>
-                                <li><a href="#">tipomaterial</a></li>
+                                <!--<li><a href="#">tipoactividad</a></li>
+                                <li><a href="#">tipomaterial</a></li>-->
+                                <li><a id="li_reportes" href="#">Reportes</a></li>
                                 
                             </ul>
                         </div>
