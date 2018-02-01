@@ -63,11 +63,13 @@ if(isset($_REQUEST['action']))
                     $arra=array();       
                    
                     foreach ( $model->ObtenerDocente($_REQUEST['iddocente']) as $r):
-                         if($r->__GET('sexo')==="1") 
-                        $sexo="<option value='1' selected>Masculino".
-                            "<option value='2'>Femenino"; 
-                    else $sexo="<option value='1'>Masculino".
-                            "<option value='2' selected>Femenino";
+                         if($r->__GET('sexo')==="1"){ 
+                        $sexo="<option disabled>Sexo<option value='1' data-icon='../imagenes/male.png' class='left circle' selected>Hombre".
+                            "<option value='2' data-icon='../imagenes/female.png' class='left circle'>Mujer"; 
+                         }else{ 
+                             $sexo="<option disabled>sexo<option value='1' data-icon='../imagenes/male.png' class='left circle' >Hombre".
+                            "<option value='2' data-icon='../imagenes/female.png' class='left circle' selected>Mujer";
+                         }
                     
                     $arra=array("iddocente"=>$r->__GET('iddocente'),
                                 "nombre"=>$r->__GET('nombre'),
@@ -90,7 +92,7 @@ if(isset($_REQUEST['action']))
                     
         case 'listar':
             $i=1;
-            $stm="<table class='table table-hover table-responsive'><thead><tr class='active'><th>#</th><th >Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha de nacimiento</th><th>Sexo</th><th>Estado</th><th>id usuario</th><th>Opciones</th></tr></thead><tbody>";
+            $stm="<table class='centered striped'><thead><tr><th>#</th><th >Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha de nacimiento</th><th>Sexo</th><th>licenciatura</th><th>id usuario</th><th>Opciones</th></tr></thead><tbody>";
            
             foreach( $model->ListarDocente() as $r):
                 
@@ -108,10 +110,9 @@ if(isset($_REQUEST['action']))
                         $stm.="<tr><td>".$i."</td><td>".$r->__GET('nombre')."</td><td>".$r->__GET('apellido')."</td><td>".$r->__GET('correo')."</td>
                             <td>".$fecha."</td><td>".$sexo."</td><td>".$r->__GET('licenciatura')."</td><td>".$r->__GET('usuario_idusuario')."</td><td>
                 
-                    <button type='button' class='btn btn-primary' id='btn_editar_docente'  href='#ventana_docente' onclick=javascript:modificar_docente(".$r->__GET('iddocente').")  data-toggle='modal' >
-                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
-                    <a type='button' class='btn btn-danger' id='btn_eliminar_docente' href='javascript:eliminar_docente(".$r->__GET('iddocente').")'>
-                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+                    <a type='button' class='waves-effect waves-light btn-floating  blue accent-4 modal-trigger ' id='btn_editar_docente'  href='#ventana_docente' onclick=javascript:modificar_docente(".$r->__GET('iddocente').")  ><i class='material-icons center'>mode_edit</i></a>
+
+                    <a type='button' class='waves-effect waves-light btn-floating  red accent-4' id='btn_eliminar_docente' href='javascript:eliminar_docente(".$r->__GET('iddocente').")'><i class='material-icons center'>delete</i></a>
         	
                 </td></tr>";
                     $i++;

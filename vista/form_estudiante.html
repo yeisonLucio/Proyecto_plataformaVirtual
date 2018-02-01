@@ -6,104 +6,111 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         
          
-         <link rel="stylesheet"  href="bootstrap-datepicker/css/bootstrap-datepicker.css">
          
-         
+          <!--Import Google Icon Font-->
+       <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="../css/estilos.css">-->
         
     </head>
     <body>
-        
-        <a href="#ventana_estudiante" class="btn btn-success " data-toggle="modal" id="btn_agregar_estudiante"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-       
-        <div class="container">
+        <div>
+            <!-- Modal Trigger -->
             
-            <div class="modal fade" id="ventana_estudiante" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!--header de la ventana-->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">AGREGAR ESTUDIANTE</h4>
-                        <!--contenido de la ventana-->
-                        <div class="modal-body">
-                            
-                            <form id="frm_curso" method="POST">
-                                <input class="form-control  hidden" type="text" name="idestudiante" id="idestudiante" required>
-                                
-                                <div class="form-group">
-                                    <label class="sr-only" for="nombre_estudiante">Nombre</label>
-                                    <input class="form-control" type="text" name="nombre_estudiante" id="nombre_estudiante" placeholder="Nombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="apellido_estudiante">Apellido</label>
-                                    <input class="form-control" type="text" name="apellido_estudiante" id="apellido_estudiante" placeholder="Apellido" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="correo_estudiante">Correo</label>
-                                    <input class="form-control" type="text" name="correo_estudiante" id="correo_estudiante" placeholder="Correo" required>
-                                </div>
-                                <div class="input-group date form-group fecha_estudiante">
-                                     <label class="sr-only" for="fecha_estudiante">Fecha</label>
-                                     <input type="text" class="form-control" id="fechaNacimiento_estudiante" placeholder="Fecha de nacimiento" ><span class="input-group-addon" >
-                                         <i class="glyphicon glyphicon-th"></i></span>
-                                </div>
-                                <div class="form-group" >
-                                    <label class="sr-only" for="sexo_estudiante">Sexo</label>
-                                    <select class="form-control" name="sexo_estudiante" id="sexo_estudiante"  required>
-                                        <option value="1">Masculino</option>
-                                        <option value="2">Femenino</option>
-                                    </select>
-                                    
-                                </div>
-                                <div class="form-group" >
-                                    <label class="sr-only" for="estado">Estado</label>
-                                    <select class="form-control" name="estado" id="estado"  required>
-                                        <option value="1">Retirado</option>
-                                        <option value="2">Activo</option>
-                                        <option value="3">Egresado</option>
-                                    </select>
-                                    
-                                </div>
-                                
-                                <div class="form-group" >
-                                    <label class="sr-only" for="idusuario_estudiante">Usuario</label>
-                                    <input class="form-control" type="text" name="idusuario_estudiante" id="idusuario_estudiante" placeholder="idusuario" required>
-                               
-                                </div>
-                                
-                                
 
-                            </form>
-                            
-                            
-                        </div>
-                            <div id="resultado" class="alert alert-success hidden" role="alert">
-                                 <p>Se guardo correctamente</p>
+            <a class="waves-effect waves-light btn green accent-4 modal-trigger btn_agregar" id="btn_agregar_estudiante" href="#ventana_estudiante"><i class="material-icons right">add</i>Agregar</a>
+
+            <!-- Modal Structure -->
+            <div id="ventana_estudiante" class="modal modal-fixed-footer" >
+              <div class="modal-content ">
+                <h4 class="" id="titulo_registrar">Registrar Estudiante</h4>
+                <h4 class="hide" id="titulo_editar">Editar Estudiante</h4> 
+                    
+                <div class="row">
+                    <form class="col s12" method="POST">
+                        <div class="row">
+                            <input  class="hide" type="text" name="idestudiante" id="idestudiante" >
+                            <div class="input-field col s6">
+                                
+                                <input  type="text"  id="nombre_estudiante" name="nombre_estudiante" placeholder="ingrese el nombre">
+                                
                             </div>
-                        <!-- footer de la ventana-->
-                        <div class="modal-footer">
-                            <button class="btn btn-primary"  id="btn_guardar_estudiante" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            <div class="input-field col s6">
+                                
+                                <input  type="text"  id="apellido_estudiante" name="apellido_estudiante" placeholder="ingrese el apellido">
+                                
+                            </div>
                             
+                            <div class="input-field col s12">
+                                
+                                <input type="email" id="correo_estudiante" name="correo_estudiante" placeholder="ingrese el correo">
+                                
+                            </div>
                             
-                        </div>
-                    </div>
+                            <div class="input-field col s6">
+                                
+                                <input type="text" class="datepicker" id="fechaNacimiento_estudiante" name="fechaNacimiento_estudiante" placeholder="ingrese la fecha de nacimiento">
+
+                            </div>
+                            <div class="input-field col s6" >
+                                <select  id="sexo_estudiante" name="sexo_estudiante">
+                                    <option disabled selected>Sexo</option>
+                                    <option value="1" data-icon="../imagenes/male.png" class="left circle">Hombre</option>
+                                    <option value="2" data-icon="../imagenes/female.png" class="left circle">Mujer</option>
+                                    
+                                </select>
+                                
+                            </div>
+                            <div class="input-field col s6" >
+                                <select class="icons" id="estado" name="estado">
+                                    <option disabled selected>Estado</option>
+                                    <option value="1" data-icon="../imagenes/retirado.png" class="left circle">Retirado</option>
+                                    <option value="2" data-icon="../imagenes/estudiante.png" class="left circle">Activo</option>
+                                    <option value="3" data-icon="../imagenes/egresado.png" class="left circle">Egresado</option>
+                                    
+                                </select>
+                                
+                            </div>
+                            <div class="input-field col s6" >
+                                
+                                <input type="text"  id="idusuario_estudiante"  placeholder="ingrese el id de usuario">
+                                
+                            </div>
+                      
+                        
+                       </div>
+                        
+                        
+                    </form>
+                    
                 </div>
+                
+              </div>
+              <div class="modal-footer">
+                  <div id="resultado" class="green lighten-1 white-text left hide" style="padding: 0 14px; border-radius: 2px;">
+                    <p>Se guardo correctamente</p>
+                  </div>
+                <a  href="#" class="waves-effect waves-light btn blue accent-4 " id="btn_guardar_estudiante"><i class="material-icons right" >save</i>Guardar</a>
+
+                <a  href="#" class=" modal-action modal-close waves-effect waves-light btn red lighten-1"><i class="material-icons right">close</i>Cancelar</a>
+               
+                
+              </div>
+                
+                
             </div>
+        </div>
+        
+        <div id="area_data_estudiante">
             
             
         </div>
-        
-        
-        
-         <div id="lista_estudiante" class="container ">
-            
-            
-        </div>
-        
        
-        <script src="bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script src="bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
-        <script src="ctrl/controller.js"></script>
+       
+      
+         <script type="text/javascript" src="../ctrl/controller.js"></script>
+         
 
     </body>
 </html>

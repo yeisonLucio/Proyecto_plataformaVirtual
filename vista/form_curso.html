@@ -1,146 +1,193 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>CURSO</title>
-        <meta charset="UTF-8">
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Import materialize.css -->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="../css/estilos.css">
+ 
+</head>
+<body>
+		
+			<div id="area_btn_agregar_curso" >	
+				<a class="waves-effect waves-light btn green accent-4 modal-trigger btn_agregar" id="btn_agregar_curso" href="#ventana_curso"><i class="material-icons right">add</i>Agregar</a>
+			</div>
+                        
+			
 
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-       <script type="text/javascript" src="ctrl/controller.js"></script>
-    </head>
-    <body>
-        
-        <a href="#ventana_curso" class="btn btn-success " data-toggle="modal" id="btn_agregar_curso" ><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-       
-        <div class="container">
-            
-            <div class="modal fade" id="ventana_curso" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!--header de la ventana-->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="cerrar_modal_curso">&times;</button>
-                            <h4 class="modal-title" id="titulo_add">AGREGAR CURSO</h4>
-                        </div>
-                        <!--contenido de la ventana-->
-                        <div class="modal-body">
-                            
-                            <form id="frm_curso" method="POST">
-                                <input class="form-control  hidden" type="text" name="idcurso" id="idcurso" required>
+            <!-- Modal Structure -->
+            <div id="ventana_curso" class="modal modal-fixed-footer" >
+              <div class="modal-content ">
+                <h4 class="" id="titulo_registrar">Registrar Curso</h4>
+                <h4 class="hide" id="titulo_editar">Editar Curso</h4> 
+                    
+                <div class="row">
+                    <form class="col s12" method="POST" id="frm_curso" enctype="multipart/form-data">
+                        <div class="row">
+                            <input  class="hide" type="text" name="idcurso" id="idcurso" >
+                            <div class="input-field col s12">
                                 
-                                <div class="form-group">
-                                    <label class="sr-only" for="nombre_curso">Nombre</label>
-                                    <input class="form-control" type="text" name="nombre_curso" id="nombre_curso" placeholder="Nombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Escriba una descripcion" required></textarea>
-                                </div>
-                                <div class="form-group" >
-                                    <label class="sr-only" for="combo_curso">Docente</label>
-                                    <select class="form-control" name="combo_curso" id="combo_curso"  required>
-                                       
-                                    </select>
-                                    
-                                </div>
+                                <input  type="text"  id="nombre_curso" name="nombre_curso" placeholder="ingrese el nombre">
                                 
-                            </form>
-                            
-                            
-                        </div>
-                            <div id="resultado" class="alert alert-success hidden" role="alert">
-                                 <p>Se guardo correctamente</p>
                             </div>
-                        <!-- footer de la ventana-->
-                        <div class="modal-footer">
-                            <button class="btn btn-primary"  id="btn_guardar_curso" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
+                            <div class="input-field col s12">
+                                
+                                <textarea  type="text"  id="descripcion" name="descripcion" class="materialize-textarea" placeholder="ingrese una descripcion"></textarea>
+
+                                
+                            </div>
+
+                            <div class="file-field input-field col s6">
+							      <div class="btn">
+							        <i class="material-icons">attach_file</i>
+							        <input type="file" name="imagen" id="imagen" multiple>
+							      </div>
+							      <div class="file-path-wrapper">
+							        <input class="file-path " id="ruta_imagen" name="ruta_imagen" type="text" placeholder="Selecciona una imagen">
+							      </div>
+							</div>
                             
+                            <div class="input-field col s6">
+                                
+                                <select  name="combo_curso" id="combo_curso"  required>
+                                
+                                       
+                                </select>
+                                
+                            </div>
+
+                            <input  class="" type="text" name="ruta_imagen_tmp" id="ruta_imagen_tmp" >
+
+                            <div id='cont_ver_imagen' class="col s12 hide">
+                            	<div  style='margin-bottom:10px;' >
+				                    <ul class='collapsible' data-collapsible='accordion' style='margin: 0 0; '>
+				                        <li>
+				                            <div id='header' class='collapsible-header'><i class='material-icons'>expand_more</i>
+				                                <span>ver imagen de portada</span>
+				                                
+
+				                            </div>
+				                            <div class='collapsible-body'>
+				                                <div  name="ver_imagen" id="ver_imagen">
+				                                	
+
+				                                                              
+				                                </div>
+
+				                            </div>
+				                            
+				                        </li>
+				                    </ul>
+				                </div>
+
+                            </div>
+                             
+							
+                                
                             
-                        </div>
-                    </div>
+                        
+                       </div>
+                        
+                        
+                    </form>
+                    
                 </div>
-            </div>
-            
-            
-        </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        <div id="area_data_curso" class="container">
-            <ol id="lista_curso">
+                
+              </div>
+              <div class="modal-footer">
+                  <div id="resultado" class="green lighten-1 white-text left hide" style="padding: 0 14px; border-radius: 2px;">
+                    <p>Se guardo correctamente</p>
+                  </div>
+                <a  href="#" class="waves-effect waves-light btn blue accent-4 " id="btn_guardar_curso"><i class="material-icons right" >save</i>Guardar</a>
+
+                <a  href="#" class=" modal-action modal-close waves-effect waves-light btn red lighten-1"><i class="material-icons right">close</i>Cancelar</a>
+               
+                
+              </div>
                 
                 
-            </ol>
-            
-        </div>
-        
-        <!--===========================ventana modal modal======================================-->
-        
-        <div class="container">
-            
-            <div class="modal fade" id="ventana_agregar_estudiante" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!--header de la ventana-->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="titulo_add">AGREGAR</h4>
-                        </div>
-                        <!--contenido de la ventana-->
-                        <div class="modal-body">
-                            
-                            <form id="frm_estudiante_cursov" method="POST">
-                                <input class="form-control hidden " type="text" name="idestudiante_curso2" id="idestudiante_curso2" required>
-                                
-                                <div class="form-group">
-                                     <label class="sr-only" for="combo3_estudiante_curso">Estudiante</label>
-                                    <select class="form-control" name="combo3_estudiante_curso" id="combo3_estudiante_curso"  required>
-                                       
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                     <label class="sr-only" for="idcurso2">Curso</label>
-                                      <input class="form-control hidden " type="text" name="idcurso2" id="idcurso2" required>
-                                    
-                                </div>
-                                <div class="form-group" >
-                                    <label class="sr-only" for="estado_estudiante_curso2">Estado</label>
-                                    <select class="form-control" name="estado_estudiante_curso2" id="estado_estudiante_curso2"  required>
-                                        <option >--Seleccionar estado--</option>
-                                        <option value="1">Cursando</option>
-                                        <option value="2">Terminado</option>
-                                    </select>
-                                    
-                                </div>
-                                
-                            </form>
-                            
-                            
-                        </div>
-                            <div id="resultado" class="alert alert-success hidden" role="alert">
-                                 <p>Se guardo correctamente</p>
-                            </div>
-                        <!-- footer de la ventana-->
-                        <div class="modal-footer">
-                            <button class="btn btn-primary"  id="btn_guardar_estudiante_curso2" ><span class="glyphicon glyphicon-floppy-disk" ></span> Guardar</button>
-                            
-                            
-                        </div>
-                    </div>
-                </div>
             </div>
-            
-            
-        </div>
-        
-        
-        
 
-        
-    </body>
+<!-- tarjetas -->
+	
+			<div class="row" id="area_data_curso">
+				
+			</div>
+
+
+<!-- ventana modal agregar estudiante a el curso -->
+
+		<div id="ventana_estudiante_curso2" class="modal modal-fixed-footer" >
+	              <div class="modal-content ">
+	                <h4 class="" id="titulo_registrar">Agregar estudiantes al curso</h4>
+	                <h4 class="hide" id="titulo_editar">Editar estudiantes del Curso</h4> 
+	                    
+	                <div class="row">
+	                    <form class="col s12" method="POST" id="frm_curso" >
+	                        <div class="row">
+	                            <input  class="hide" type="text" name="idestudiante_curso2" id="idestudiante_curso2" >
+	                            <div class="input-field col s12">
+	                                <select  name="combo3_estudiante_curso" id="combo3_estudiante_curso"  required>
+	                                
+	                                       
+	                                </select>
+	                               
+	                                
+	                            </div>
+	                            <div class="input-field col s12">
+	                                <input class="hide" type="text" name="idcurso2" id="idcurso2" required>
+	                                
+	                            </div>
+
+	                            <div class=" input-field col s6">
+	                                <select class="icons" id="estado_estudiante_curso2" name="estado_estudiante_curso2">
+	                                    <option disabled selected>Estado del estudiante</option>
+	                                    <option value="2" data-icon="../imagenes/cursando.png" class="left circle">Cursando</option>
+	                                    <option value="3" data-icon="../imagenes/terminado.png" class="left circle">Terminado</option>
+	                                    
+	                                </select>
+	                                  
+	                            </div>
+	                            
+	                        
+	                         
+	                       </div>
+	                        
+	                        
+	                    </form>
+	                    
+	                </div>
+	                
+	              </div>
+	              <div class="modal-footer">
+	                  <div id="resultado" class="green lighten-1 white-text left hide" style="padding: 0 14px; border-radius: 2px;">
+	                    <p>Se guardo correctamente</p>
+	                  </div>
+	                <a  href="#" class="waves-effect waves-light btn blue accent-4 " id="btn_guardar_estudiante_curso2"><i class="material-icons right" >save</i>Guardar</a>
+
+	                <a  href="#" class=" modal-action modal-close waves-effect waves-light btn red lighten-1"><i class="material-icons right">close</i>Cancelar</a>
+	               
+	                
+	              </div>
+	                
+	                
+	        </div>
+			
+
+	
+	
+
+	
+
+  
+
+
+
+		<script type="text/javascript" src="../js/jquery.js"></script>
+         <script type="text/javascript" src="../js/materialize.js"></script>
+         <script type="text/javascript" src="../ctrl/controller.js"></script>
+</body>
 </html>

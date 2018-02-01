@@ -83,9 +83,10 @@ class EstudianteModel
 
 	public function EliminarEstudiante($idestudiante)
 	{
+		$respuesta=false;
 		try 
 		{
-			$stm = $this->pdo
+			$respuesta=$stm = $this->pdo
 			          ->prepare("DELETE FROM estudiante WHERE idestudiante = ?");			          
 
 			$stm->execute(array($idestudiante));
@@ -93,10 +94,12 @@ class EstudianteModel
 		{
 			die($e->getMessage());
 		}
+		echo $respuesta;
 	}
 
 	public function ActualizarEstudiante(Estudiante $data)
 	{
+		 $respuesta=false;
 		try 
 		{
 			$sql = "UPDATE estudiante SET 
@@ -110,7 +113,7 @@ class EstudianteModel
 						
 				    WHERE idestudiante = ?";
 
-			$this->pdo->prepare($sql)
+			$respuesta=$this->pdo->prepare($sql)
 			     ->execute(
 				array(
 					$data->__GET('nombre'), 
@@ -128,6 +131,7 @@ class EstudianteModel
 		{
 			die($e->getMessage());
 		}
+		echo $respuesta;
 	}
 
 	public function RegistrarEstudiante(Estudiante $data)

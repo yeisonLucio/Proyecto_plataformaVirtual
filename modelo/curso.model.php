@@ -36,6 +36,7 @@ class CursoModel
 				$alm->__SET('docente_iddocente', $r->docente_iddocente);
 				$alm->__SET('nombre', $r->nombre);
 				$alm->__SET('descripcion', $r->descripcion);
+				$alm->__SET('ruta_imagen', $r->ruta_imagen);
 				
                                 
 				$result[] = $alm;
@@ -73,7 +74,9 @@ class CursoModel
 				$alm->__SET('docente_iddocente', $r->docente_iddocente);
 				$alm->__SET('nombre', $r->nombre);
 				$alm->__SET('descripcion', $r->descripcion);
+				$alm->__SET('ruta_imagen', $r->ruta_imagen);
                                 
+
                                 $result[]=$alm;
 
                         
@@ -87,18 +90,20 @@ class CursoModel
 	}
         
 
-	public function EliminarCurso($idcurso)
-	{
+	public function EliminarCurso($idcurso){
+		$respuesta=false;
 		try 
 		{
 			$stm = $this->pdo
 			          ->prepare("DELETE FROM curso WHERE idcurso = ?");			          
 
-			$stm->execute(array($idcurso));
+			$respuesta=$stm->execute(array($idcurso));
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
+		return $respuesta;
+
 	}
 
 	public function ActualizarCurso(Curso $data)
@@ -109,7 +114,8 @@ class CursoModel
 			$sql = "UPDATE curso SET 
 						docente_iddocente          = ?, 
 						nombre                     = ?,
-						descripcion                = ?
+						descripcion                = ?,
+						ruta_imagen                = ?
 						
 						WHERE idcurso = ?";
 
@@ -120,14 +126,16 @@ class CursoModel
 					$data->__GET('docente_iddocente'), 
 					$data->__GET('nombre'), 
 					$data->__GET('descripcion'),
+					$data->__GET('ruta_imagen'),
 					$data->__GET('idcurso')
+
 					)
 				);
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
-                echo $respuesta;
+                return $respuesta;
 	}
 
 	public function RegistrarCurso(Curso $data)
@@ -135,22 +143,23 @@ class CursoModel
             $respuesta=false;
 		try 
 		{
-		$sql = "INSERT INTO curso (docente_iddocente,nombre,descripcion) 
-		        VALUES (?, ?, ?)";
+		$sql = "INSERT INTO curso (docente_iddocente,nombre,descripcion,ruta_imagen) 
+		        VALUES (?, ?, ?, ?)";
 
 		$respuesta=$this->pdo->prepare($sql)
 		     ->execute(
 			array(
 				$data->__GET('docente_iddocente'), 
 				$data->__GET('nombre'), 
-				$data->__GET('descripcion')
+				$data->__GET('descripcion'),
+				$data->__GET('ruta_imagen')
 				)
 			);
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
-                echo $respuesta;
+                return $respuesta;
 	}
         
         public function obtenercombo(){

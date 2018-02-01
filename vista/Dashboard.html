@@ -9,97 +9,101 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="../css/estilos.css">
         
 
     </head>
     <body>
         
-        <header>
+        <div class="row">
             
-        <div class="nav-wrapper">
-                    
+            <div class="col m3 ">
             
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="mobile-demo1" class="side-nav fixed " >
-                <li class="logo card-panel teal accent-3 " style="margin-top: 0px; padding: 100px  30px;"  >
-                    <!--<a href="#" class="brand-logo container"><h5><span class="white-text text-darken-2">Dashboard</span></h5></a>-->
-                    <a class="brand-logo container center-align white-text"><i class=" large material-icons white-text ">account_box</i>Administrador</a>
-                </li>
+                <header>
+
+                <div class="nav-wrapper">
+
+
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="mobile-demo1" class="side-nav fixed " >
+                        <li class="logo card-panel teal accent-3 " style="margin-top: 0px; padding: 100px  30px;"  >
+                            <!--<a href="#" class="brand-logo container"><h5><span class="white-text text-darken-2">Dashboard</span></h5></a>-->
+                            <a class="brand-logo container center-align white-text"><i class=" large material-icons white-text ">account_box</i>Administrador</a>
+                        </li>
+
+                        <li class="search ">
+                            <div class="nav-wrapper">
+                                <form>
+                                  <div class="input-field ">
+                                      <input id="search" type="search" required style="margin-bottom: 0px;">
+                                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                    <i class="material-icons">close</i>
+                                  </div>
+                                </form>
+                              </div>
+                        </li>
+                       
+                        <li class="li_curso"><a class="waves-effect waves-teal" >Curso<i class="material-icons">home</i></a></li>
+                        <li class="li_docente"><a class="waves-effect waves-teal" >Docente<i class="material-icons">home</i></a></li>
+                        <li class="li_estudiante"><a class="waves-effect waves-teal" >Estudiante<i class="material-icons">person</i></a></li>
+                        <li class="li_estudiante_curso"><a class="waves-effect waves-teal" >Estudiante_curso<i class="material-icons">home</i></a></li>
+                        
+
+                    </ul>
+
+                    <ul id="mobile-demo" class="side-nav" >
+                        <li class="logo card-panel teal accent-3  " style="margin-top: 0px; padding: 100px ;"  >
+                            <!--<a href="#" class="brand-logo container"><h5><span class="white-text text-darken-2">Dashboard</span></h5></a>-->
+                            <!--<a class="brand-logo container center-align white-text"><i class=" large material-icons white-text  ">account_box</i>Administrador</a>-->
+                            <div class="brand-logo">
+                                <i class=" large material-icons white-text right  ">account_box</i>Administrador
+                            </div>
+                        </li>
+
+                        <li class="search ">
+                            <div class="nav-wrapper">
+                                <form>
+                                  <div class="input-field ">
+                                      <input id="search" type="search" required style="margin-bottom: 0px;">
+                                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                    <i class="material-icons">close</i>
+                                  </div>
+                                </form>
+                              </div>
+                        </li>
+                        <li class="li_curso"><a class="waves-effect waves-teal" >Curso<i class="material-icons">home</i></a></li>
+                        <li class="li_docente"><a class="waves-effect waves-teal" >Docente<i class="material-icons">home</i></a></li>
+                        <li class="li_estudiante"><a class="waves-effect waves-teal" >Estudiante<i class="material-icons">person</i></a></li>
+                        <li class="li_estudiante_curso"><a class="waves-effect waves-teal" >Estudiante_curso<i class="material-icons">home</i></a></li>
+
+                    </ul>
+
+                </div>
+
+
+
+                </header>
                 
-                <li class="search ">
-                    <div class="nav-wrapper">
-                        <form>
-                          <div class="input-field ">
-                              <input id="search" type="search" required style="margin-bottom: 0px;">
-                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                            <i class="material-icons">close</i>
-                          </div>
-                        </form>
-                      </div>
-                </li>
-                <li><a class="waves-effect waves-teal" >Actividad<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Activ_estudianteCurso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Curso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Docente<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Estudiante<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Estudiante_curso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Material<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Test<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Test_estudianteCurso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Tipo_actividad<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Tipo_material<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Usuario<i class="material-icons">home</i></a></li>
-                
-            </ul>
+            </div>  
+            <div class="col m9 col s12 ">
+                <main class="">
+                    <div id="mostrar_datos" > 
+                        
+                        
+                    </div>
+
+
+                </main>
+                <footer>
+
+                </footer>
+            </div>    
             
-            <ul id="mobile-demo" class="side-nav" >
-                <li class="logo card-panel teal accent-3 " style="margin-top: 0px; padding: 100px  60px;"  >
-                    <!--<a href="#" class="brand-logo container"><h5><span class="white-text text-darken-2">Dashboard</span></h5></a>-->
-                    <a class="brand-logo container center-align white-text"><i class=" large material-icons white-text center-block ">account_box</i>Administrador</a>
-                </li>
-                
-                <li class="search ">
-                    <div class="nav-wrapper">
-                        <form>
-                          <div class="input-field ">
-                              <input id="search" type="search" required style="margin-bottom: 0px;">
-                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                            <i class="material-icons">close</i>
-                          </div>
-                        </form>
-                      </div>
-                </li>
-                <li><a class="waves-effect waves-teal" >Actividad<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Activ_estudianteCurso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Curso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Docente<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Estudiante<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Estudiante_curso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Material<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Test<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Test_estudianteCurso<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Tipo_actividad<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Tipo_material<i class="material-icons">home</i></a></li>
-                <li><a class="waves-effect waves-teal" >Usuario<i class="material-icons">home</i></a></li>
-                
-            </ul>
-            
-        </div>
-                
-           
-            
-        </header>
-        <main class="container">
-            
-            
-        </main>
-        <footer>
-            
-        </footer>
+        </div>  
           
          <script type="text/javascript" src="../js/jquery.js"></script>
-         <script type="text/javascript" src="../js/materialize.min.js"></script>
-         <script type="text/javascript" src="prueba.js"></script>
+         <script type="text/javascript" src="../js/materialize.js"></script>
+         <script type="text/javascript" src="../ctrl/controller.js"></script>
          
     </body>
 </html>

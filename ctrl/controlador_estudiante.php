@@ -60,25 +60,25 @@ if(isset($_REQUEST['action']))
                    
                     foreach ( $model->ObtenerEstudiante($_REQUEST['idestudiante']) as $r):
                          if($r->__GET('sexo')==="1"){ 
-                        $sexo="<option value='1' selected>Masculino".
-                            "<option value='2'>Femenino"; 
+                        $sexo="<option disabled>Sexo<option value='1' data-icon='../imagenes/male.png' class='left circle' selected>Hombre".
+                            "<option value='2' data-icon='../imagenes/female.png' class='left circle'>Mujer"; 
                          }else{ 
-                             $sexo="<option value='1'>Masculino".
-                            "<option value='2' selected>Femenino";
+                             $sexo="<option disabled>sexo<option value='1' data-icon='../imagenes/male.png' class='left circle' >Hombre".
+                            "<option value='2' data-icon='../imagenes/female.png' class='left circle' selected>Mujer";
                          }
                          
                      if($r->__GET('estado')==="1"){ 
-                            $estado="<option value='1' selected>Retirado".
-                            "<option value='2'>Activo".
-                             "<option value='3'>Egresado";
+                            $estado="<option disabled>Estado<option value='1' data-icon='../imagenes/retirado.png' class='left circle' selected>Retirado".
+                            "<option value='2' data-icon='../imagenes/estudiante.png' class='left circle'>Activo".
+                             "<option value='3' data-icon='../imagenes/egresado.png' class='left circle'>Egresado";
                      }else if($r->__GET('estado')==="2"){
-                            $estado="<option value='1'>Retirado".
-                            "<option value='2' selected>Activo".
-                            "<option value='3'>Egresado";
+                            $estado="<option disabled>Estado<option value='1' data-icon='../imagenes/retirado.png' class='left circle' selected>Retirado".
+                            "<option value='2' data-icon='../imagenes/estudiante.png' class='left circle' selected>Activo".
+                             "<option value='3' data-icon='../imagenes/egresado.png' class='left circle'>Egresado";
                      }else{
-                        $estado="<option value='1'>Retirado".
-                            "<option value='2'>Activo".
-                            "<option value='3' selected>Egresado";
+                        $estado="<option disabled>Estado<option value='1' data-icon='../imagenes/retirado.png' class='left circle' selected>Retirado".
+                            "<option value='2' data-icon='../imagenes/estudiante.png' class='left circle'>Activo".
+                             "<option value='3' data-icon='../imagenes/egresado.png' class='left circle' selected>Egresado";
                      }
                     
                     $arra=array("idestudiante"=>$r->__GET('idestudiante'),
@@ -99,15 +99,15 @@ if(isset($_REQUEST['action']))
                         
                 case 'listar':
                     $i=1;
-                    $stm="<table class='table table-responsive table-hover'><thead><tr class='active'><th>#</th><th >Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha de nacimiento</th><th>Sexo</th><th>Estado</th><th>id usuario</th><th>Opciones</th></tr></thead><tbody>";
+                    $stm="<table class='centered striped '><thead><tr><th>#</th><th >Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha de nacimiento</th><th>Sexo</th><th>Estado</th><th>id usuario</th><th>Opciones</th></tr></thead><tbody class=''>";
             foreach( $model->ListarEstudiante() as $r):
                 $fecha=cambiaf_a_normal($r->__GET('fechaNacimiento'));
             $sexo="";
                 if($r->__GET('sexo')=="1"){
-                    $sexo="Masculino";
+                    $sexo="Hombre";
                     
                 }else{
-                    $sexo="Femenino";
+                    $sexo="Mujer";
                 }
                 $estado="";
                 if($r->__GET('estado')=="2"){
@@ -126,10 +126,9 @@ if(isset($_REQUEST['action']))
                         $stm.="<tr><td>".$i."</td><td>".$r->__GET('nombre')."</td><td>".$r->__GET('apellido')."</td><td>".$r->__GET('correo')."</td>
                             <td>".$fecha."</td><td>".$sexo."</td><td>".$estado."</td><td>".$r->__GET('usuario_idusuario')."</td><td>
                 
-                    <button type='button' class='btn btn-primary' id='btn_editar_estudiante'  href='#ventana_estudiante' onclick=javascript:modificar_estudiante(".$r->__GET('idestudiante').")  data-toggle='modal' >
-                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
-                    <a type='button' class='btn btn-danger' id='btn_eliminar_estudiante' href='javascript:eliminar_estudiante(".$r->__GET('idestudiante').")'>
-                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+                    <a type='button' class='waves-effect waves-light btn-floating  blue accent-4 modal-trigger ' id='btn_editar_estudiante'  href='#ventana_estudiante' onclick=javascript:modificar_estudiante(".$r->__GET('idestudiante').")  ><i class='material-icons center'>mode_edit</i></a>
+
+                    <a type='button' class='waves-effect waves-light btn-floating  red accent-4' id='btn_eliminar_estudiante' href='javascript:eliminar_estudiante(".$r->__GET('idestudiante').")'><i class='material-icons center'>delete</i></a>
         	
                 </td></tr>";
                     $i++;

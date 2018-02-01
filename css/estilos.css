@@ -6,23 +6,40 @@
     background-attachment: fixed;
    
     
+}**/
+
+
+.col.m9{
+    padding: 0;
+    
+}
+.col.m3{
+    padding: 0; 
+}
+.side-nav{
+    width: 321px;
+}
+#icono_admin{
+    margin: 0px 0px ;
+    padding: 0px;
+}
+@media only screen and (max-width: 992px){
+   
+    .side-nav{
+        width: 300px;
+    }
+     
 }
 
-**/
-/* make sidebar nav vertical */ 
-
-
-
-
-
-#btn_agregar_curso,#btn_agregar_docente,#btn_agregar_estudiante,#btn_agregar_estudiante_curso{
+.btn_agregar{
     float: right;
     position: relative;
     top: 50px;
     right: 30px;
-   
     
 }
+
+
 #resultado{
     float:left;
     position: relative;
@@ -33,7 +50,7 @@
 #area_data_curso{
 	position: relative;
 	top: 50px;
-        right: 20px;
+    right: 20px;
         
         
 	
@@ -54,12 +71,19 @@
         
 	
 }
-#lista_estudiante_curso,#lista_estudiante,#lista_docente{
+
+table.responsive-table tbody{
+
+
+}
+
+
+/*#lista_estudiante_curso{
     position: relative;
 	top: 100px;
         right: 20px;
 }
-
+*/
 
 #item {
    
@@ -78,12 +102,19 @@
 }
 
 
-
-#texto{
-    
+#area_data_curso{
     
    
 }
+.collapsible-body{
+    padding:15px 15px;
+}
+#area_data_estudiante_curso{
+    position: relative;
+    top:80px;
+}
+
+
 
 
 

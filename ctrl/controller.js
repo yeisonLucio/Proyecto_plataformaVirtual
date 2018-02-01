@@ -1,121 +1,182 @@
 
-//investigar datepicker en jquery
 $(function()
 {
-    $('#li_curso').click(function(){
-        listar("curso");
-        console.log("voy a cargar el form_curso.html");
-        $("#mostrar_datos").load('vista/form_curso.html');
-   });
-   
-   $('#li_docente').click(function(){
-        listar("docente");
-        console.log("voy a cargar el form_docente.html");
-        $("#mostrar_datos").load('vista/form_docente.html');
-   });
-   
-    $('#li_estudiante').click(function(){
+     $(".modal").modal();
+     $(".button-collapse").sideNav();
+     
+     $('select').material_select();
+     $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 100, // Creates a dropdown of 15 years to control year,
+          today: 'Hoy',
+          clear: 'Eliminar',
+          close: 'Listo',
+          closeOnSelect: false // Close upon selecting a date,
+      });
+
+/////////////// metodos de la tabla estudiante /////////////   
+
+     
+  $('.li_estudiante').click(function(){
+         $('.li_estudiante').sideNav('hide');
         listar("estudiante");
         console.log("voy a cargar el form_estudiante.html");
-        $("#mostrar_datos").load('vista/form_estudiante.html');
+        $("#mostrar_datos").load('../vista/form_estudiante.html');
    });
-   
-   $('#li_estudiante_curso').click(function(){
-        listar("estudiante_curso");
-        console.log("voy a cargar el form_estudiante_curso.html");
-        $("#mostrar_datos").load('vista/form_estudiante_curso.html');
-   });
-   
-   $('#li_reportes').click(function(){
-       
-        console.log("voy a cargar la vista de reportes.html");
-         reporte_total_estudiantesxcurso();
-        $("#mostrar_datos").load('vista/vista_reportes.html');
-       
-   });
-   
-   
-   
+
     
-   
-  
-  
-    
-    //listar("estudiante_curso");
-    
-    $('#btn_agregar_docente').click(function(){
-        $('.fecha_docente').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es"
-        });
-    });
     $('#btn_agregar_estudiante').click(function(){
-        $('.fecha_estudiante').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es"
-        });
-    });
-    $('#btn_agregar_curso').one('click',function(){
-        console.log("di click en el boton agregar");
-        llenar_combo_tablas("curso",1);
-         
+      
+      vaciar_cajas_estudiante();
+      $('#titulo_editar').addClass('hide');
+      $('#titulo_registrar').removeClass('hide');
+      $('#resultado').addClass('hide');
+      
         
     });
-    $('#btn_agregar_estudiante_curso').one('click',function(){
-        llenar_combo_tablas("estudiante_curso",1);
-        llenar_combo_tablas("estudiante_curso",2);
-         
-        
-    });
-//    $('#btn_agregar_estudiante_curso2').one('click',function(){
-//        console.log("di click en el boton agregar");
-//        llenar_combo_tablas("estudiante_curso",3);
-//        
-//         
-//        
-//    });
-    $('#btn_agregar_curso').click(function(){
-        vaciar_cajas_curso();
-        
-        
-    });
-    $('#btn_agregar_docente').click(function(){
-        vaciar_cajas_docente();
-    });
-    $('#btn_agregar_estudiante').click(function(){
-        vaciar_cajas_estudiante();
-    });
-   
-    $('#btn_guardar_curso').click(function(){
-        guardar_curso();
-        vaciar_cajas_curso();
-        
-    });
-    $('#btn_guardar_estudiante_curso').click(function(){
-        guardar_estudiante_curso();
-        
-    });
-    
-    
-    $('#btn_guardar_docente').click(function(){
-        guardar_docente();
-        vaciar_cajas_docente();
-        
-        
-    });
+
     $('#btn_guardar_estudiante').click(function(){
         guardar_estudiante();
         vaciar_cajas_estudiante()
-        
-        
-    });
-    
-   $('#btn_guardar_estudiante_curso2').click(function(){
        
-          guardar_estudiante_curso2();
-        
     });
+///////////// ////////////////// fin metodos de la tabla estudiante  /////////////////////////////////////////////////////////////
+
+   
+///////////// ////////////////// medotos de la tabla Docente  /////////////////////////////////////////////////////////////
+    $('.li_docente').click(function(){
+       $('.li_docente').sideNav('hide');
+       listar("docente");
+       console.log("voy a cargar el form_docente.html");
+       $("#mostrar_datos").load('../vista/form_docente.html');
+  });
+//   
+   
+   $('#btn_agregar_docente').click(function(){
+       vaciar_cajas_docente();
+       $('#titulo_editar').addClass('hide');
+       $('#titulo_registrar').removeClass('hide');
+       $('#resultado').addClass('hide');
+   });
+   
+   $('#btn_guardar_docente').click(function(){
+       guardar_docente();
+       vaciar_cajas_docente();
+       
+   });
+
+//////////////////////////////// fin metodos de la tabla docente //////////////////////////////////////////// 
+
+
+
+//////////////////////////////// metodos de la tabla curso ////////////////////////////////////////////  
+
+
+
+
+$('.li_curso').click(function(){
+    listar("curso");
+    console.log("voy a cargar el form_curso.html");
+    $("#mostrar_datos").load('../vista/form_curso.html');
+});
+$('#btn_agregar_curso').click(function(){
+  $('#cont_ver_imagen').addClass('hide');
+
+});
+
+$('#btn_agregar_curso').one('click',function(){
+  llenar_combo_tablas("curso",1);
+
+  
+});
+$('#btn_guardar_curso').click(function(){
+       guardar_curso();
+       vaciar_cajas_curso();
+       llenar_combo_tablas("curso",1,"");
+
+       
+});
+
+
+
+ /*$('#li_curso').click(function(){
+       
+       console.log("voy a cargar el form_curso.html");
+       $("#mostrar_datos").load('vista/form_curso.html');
+  });
+
+
+   */
+
+/*metodos de estudiante curso2*/
+
+
     
+  $('#btn_guardar_estudiante_curso2').click(function(){
+      
+         guardar_estudiante_curso2();
+         vaciar_cajas_estudiante_curso2();
+       
+   });
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////// fin metodos de la tabla curso //////////////////////////////////////////// 
+
+
+
+//////////////////////////////// metodos de la tabla estudiante_curso //////////////////////////////////////////// 
+
+  
+   $('.li_estudiante_curso').click(function(){
+        listar("estudiante_curso");
+        console.log("voy a cargar el form_estudiante_curso.html");
+        $("#mostrar_datos").load('../vista/form_estudiante_curso.html');
+   });
+
+   $('#btn_guardar_estudiante_curso').click(function(){
+       guardar_estudiante_curso();
+       
+   });
+
+   $('#btn_agregar_estudiante_curso').one('click',function(){
+       llenar_combo_tablas("estudiante_curso",1,"");
+       llenar_combo_tablas("estudiante_curso",2,"");
+        
+       
+   });
+
+   
+
+//////////////////////////////// fin metodos de la tabla estudiante_curso //////////////////////////////////////////// 
+    
+//   
+
+//   
+//   $('#li_reportes').click(function(){
+//       
+//        console.log("voy a cargar la vista de reportes.html");
+//         reporte_total_estudiantesxcurso();
+//        $("#mostrar_datos").load('vista/vista_reportes.html');
+//       
+//   });
+//   
+//    
+
+//    
+
+    
+//    
+
+
+//    
     });
 
 function vaciar_cajas_curso(){
@@ -133,17 +194,34 @@ function vaciar_cajas_docente(){
       $('#fechaNacimiento_docente').val("");
       $('#licenciatura').val("");
       $('#idusuario_docente').val("");
+      document.getElementById("sexo_docente").innerHTML= "<option disabled selected>Sexo</option><option value='1' data-icon='../imagenes/male.png' class='left circle'>Hombre</option><option value='2' data-icon='../imagenes/female.png' class='left circle'>Mujer</option>";
+      $('select').material_select();
 }
 function vaciar_cajas_estudiante(){
       $('#idestudiante').val("");
       $('#nombre_estudiante').val("");
       $('#apellido_estudiante').val("");
-      $('#correo_estudiante').val(); 
+      $('#correo_estudiante').val(""); 
       $('#fechaNacimiento_estudiante').val("");
       $('#idusuario_estudiante').val("");
-    
+      document.getElementById("sexo_estudiante").innerHTML= "<option disabled selected>Sexo</option><option value='1' data-icon='../imagenes/male.png' class='left circle'>Hombre</option><option value='2' data-icon='../imagenes/female.png' class='left circle'>Mujer</option>";
+      document.getElementById("estado").innerHTML= "<option disabled selected>Estado</option><option value='1' data-icon='../imagenes/retirado.png' class='left circle'>Retirado</option><option value='2' data-icon='../imagenes/estudiante.png' class='left circle'>Activo</option><option value='3' data-icon='../imagenes/egresado.png' class='left circle'>Egresado</option>";
+      $('select').material_select();
     
 }
+
+function vaciar_cajas_estudiante_curso2(){
+  $('idestudiante_curso2').val("");
+  $('idcurso2').val("");
+  llenar_combo_tablas("estudiante_curso",3,"");
+  $('select').material_select();
+  document.getElementById("estado_estudiante_curso2").innerHTML= "<option disabled selected>Estado del estudiante</option><option value='2' data-icon='../imagenes/cursando.png' class='left circle'>Cursando</option><option value='3' data-icon='../imagenes/terminado.png' class='left circle'>Terminado</option>";
+
+}
+
+
+
+
 
 
  
@@ -165,36 +243,33 @@ function guardar_curso()
         console.log("se actualizara el curso"+idcurso)
         v_action = "actualizar"; 
     }
+    var datos= new FormData($('#frm_curso')[0]);
+    datos.append("action",v_action);
+
      
         
-       var idcurso=$('#idcurso').val();
+       /*var idcurso=$('#idcurso').val();
        var nombre= $('#nombre_curso').val();
        var descripcion=$('#descripcion').val();
        var iddocente=$('#combo_curso').val(); 
        
-       console.log("nombre: "+nombre+" descripcion: "+descripcion+" iddocente: "+iddocente);
+       console.log("nombre: "+nombre+" descripcion: "+descripcion+" iddocente: "+iddocente);*/
        $.ajax({
         type: "POST",
-        url: "ctrl/controlador_curso.php",
-        data:	{
-            action: v_action,
-            idcurso:idcurso,
-            nombre:nombre,
-            descripcion:descripcion,
-            docente_iddocente:iddocente
-            
-        },
-        dataType: 'text', 
+        url: "../ctrl/controlador_curso.php",
+        data:	datos,
+        contentType:false,
+        processData:false, 
         beforeSend: function(data) { 
             console.log("data enviada..."+data);
-            $('#btn_guardar_curso').val("Guardando...");
+            
         },
         success: function(data){
-            $('#btn_guardar_curso').val("Guardar");
-            console.log("data :"+data);
+            
+            //console.log("data :"+data);
             if(data){
                
-                $('#resultado').removeClass('hidden');
+                
             }
 
              listar("curso"); 
@@ -234,7 +309,7 @@ function guardar_estudiante_curso()
        console.log("idestudiante "+idestudiante_curso+" combo_estudiante: "+combo+" combo_curso: "+combo2+" estado: "+estado);
        $.ajax({
         type: "POST",
-        url: "ctrl/controlador_estudiante_curso.php",
+        url: "../ctrl/controlador_estudiante_curso.php",
         data:	{
             action: v_action,
             idestudiante_curso:idestudiante_curso,
@@ -246,14 +321,14 @@ function guardar_estudiante_curso()
         dataType: 'text', 
         beforeSend: function(data) { 
             console.log("data enviada..."+data);
-            $('#btn_guardar_estudiante_curso').val("Guardando...");
+            
         },
         success: function(data){
-            $('#btn_guardar_estudiante_curso').val("Guardar");
+            
             console.log("data :"+data);
             if(data){
                
-                $('#resultado').removeClass('hidden');
+               
             }
 
              listar("estudiante_curso"); 
@@ -297,7 +372,7 @@ function guardar_estudiante_curso2()
        console.log("idestudiante "+idestudiante_curso+" combo_estudiante: "+combo+" combo_curso: "+combo2+" estado: "+estado);
        $.ajax({
         type: "POST",
-        url: "ctrl/controlador_estudiante_curso.php",
+        url: "../ctrl/controlador_estudiante_curso.php",
         data:	{
             action: v_action,
             idestudiante_curso:idestudiante_curso,
@@ -309,14 +384,14 @@ function guardar_estudiante_curso2()
         dataType: 'text', 
         beforeSend: function(data) { 
             console.log("data enviada..."+data);
-            $('#btn_guardar_estudiante_curso2').val("Guardando...");
+            
         },
         success: function(data){
-            $('#btn_guardar_estudiante_curso2').val("Guardar");
+            
             console.log("data :"+data);
             if(data){
                
-                $('#resultado').removeClass('hidden');
+               
             }
 
             listar_estudiantes(combo2); 
@@ -334,7 +409,7 @@ function eliminar_estudiante_curso2(id,idcurso)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="ctrl/controlador_estudiante_curso.php";
+    var v_controlador ="../ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -376,11 +451,11 @@ function eliminar_estudiante_curso2(id,idcurso)
 
 function modificar_estudiante_curso2(id)
 {
-    $('#resultado').addClass('hidden');
+    
     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_estudiante_curso.php";
+     var v_controlador ="../ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -395,7 +470,7 @@ function modificar_estudiante_curso2(id)
         success: function(data)
         {
        console.log("\n!! vamos a cargar los datos del cliente !!"+data);
-             llenar_combo_tablas("estudiante_curso",3);
+             llenar_combo_tablas("estudiante_curso",3,"editar");
              
             var estudiante_curso=JSON.parse(data); 
             console.log("curso_"+estudiante_curso);
@@ -454,7 +529,7 @@ function guardar_docente()
                +sexo+" licenciatura: "+licenciatura+" usuario: "+usuario);
        $.ajax({
         type: "POST",
-        url: "ctrl/controlador_docente.php",
+        url: "../ctrl/controlador_docente.php",
         data:	{
             action: v_action,
             iddocente:iddocente,
@@ -470,14 +545,13 @@ function guardar_docente()
         dataType: 'text', 
         beforeSend: function(data) { 
             console.log("data enviada..."+data);
-            $('#btn_guardar_curso').val("Guardando...");
+            
         },
         success: function(data){
-            $('#btn_guardar_curso').val("Guardar");
             console.log("data :"+data);
             if(data){
                
-                $('#resultado').removeClass('hidden');
+                $('#resultado').removeClass('hide');
             }
 
              listar("docente"); 
@@ -522,7 +596,7 @@ function guardar_estudiante()
                +sexo+" licenciatura: "+estado+" usuario: "+usuario);
        $.ajax({
         type: "POST",
-        url: "ctrl/controlador_estudiante.php",
+        url: "../ctrl/controlador_estudiante.php",
         data:	{
             action: v_action,
             idestudiante:idestudiante,
@@ -538,14 +612,14 @@ function guardar_estudiante()
         dataType: 'text', 
         beforeSend: function(data) { 
             console.log("data enviada..."+data);
-            $('#btn_guardar_estudiante').val("Guardando...");
+            
         },
         success: function(data){
-            $('#btn_guardar_estudiante').val("Guardar");
+          
             console.log("data :"+data);
             if(data){
                
-                $('#resultado').removeClass('hidden');
+                $('#resultado').removeClass('hide');
             }
 
              listar("estudiante"); 
@@ -558,13 +632,14 @@ function guardar_estudiante()
 
 }
 
+
 function listar(v_nombre_tabla)
 {
-     //event.preventDefault();
+     
     var v_action = "listar";
     //cargar el controlador de la respectiva tabla
     //var v_controlador ="../ctrl/controlador_"+v_nombre_tabla+".php";
-    var v_controlador ="ctrl/controlador_"+v_nombre_tabla+".php";
+    var v_controlador ="../ctrl/controlador_"+v_nombre_tabla+".php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -578,19 +653,20 @@ function listar(v_nombre_tabla)
         },
         success: function(data)
         {
-            console.log("!! successsss   !!"+ data);
+           // console.log("!! successsss   !!"+ data);
            
             
             if(data !== null)
             {
                 
                 
-               $('#lista_'+v_nombre_tabla).text('');
-           var $log = $( "#lista_"+v_nombre_tabla ),
+               $('#area_data_'+v_nombre_tabla).text('');
+           var $log = $( "#area_data_"+v_nombre_tabla ),
           str = data,
           html = $.parseHTML( str );
           
         $log.append( html );
+        $('.collapsible').collapsible();
 
         // Gather the parsed HTML's node names
              
@@ -615,18 +691,19 @@ function listar(v_nombre_tabla)
     });
 
 }
-function eliminar_curso(id)
+function eliminar_curso(id,ruta_imagen)
 {
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="ctrl/controlador_curso.php";
+    var v_controlador ="../ctrl/controlador_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
         data:	{
             action: v_action,
-            idcurso:id
+            idcurso:id,
+            ruta_imagen:ruta_imagen
         },
         dataType: 'text', 
         beforeSend: function(x) { 
@@ -662,7 +739,7 @@ function eliminar_estudiante_curso(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="ctrl/controlador_estudiante_curso.php";
+    var v_controlador ="../ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -704,7 +781,7 @@ function eliminar_estudiante(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="ctrl/controlador_estudiante.php";
+    var v_controlador ="../ctrl/controlador_estudiante.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -746,7 +823,7 @@ function eliminar_docente(id)
     var v_action = "eliminar";
     
     //cargar el controlador de la respectiva tabla
-    var v_controlador ="ctrl/controlador_docente.php";
+    var v_controlador ="../ctrl/controlador_docente.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -786,11 +863,11 @@ function eliminar_docente(id)
 
 function modificar_curso(id)
 {
-    $('#resultado').addClass('hidden');
-    
+    $('#cont_ver_imagen').removeClass('hide');
+        
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_curso.php";
+     var v_controlador ="../ctrl/controlador_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -805,13 +882,16 @@ function modificar_curso(id)
         success: function(data)
         {
        console.log("\n!! vamos a cargar los datos del cliente !!"+data);
-             llenar_combo_tablas("curso",1);
+             llenar_combo_tablas("curso",1,"editar");
             var curso=JSON.parse(data); 
             console.log("curso_"+curso);
             document.getElementById("idcurso").value = curso['idcurso'];
             document.getElementById("nombre_curso").value = curso['nombre'];
             document.getElementById("descripcion").value = curso['descripcion'];
             document.getElementById("combo_curso").innerHTML= curso['iddocente'];
+            document.getElementById("ver_imagen").innerHTML= curso['ruta_imagen'];
+            document.getElementById("ruta_imagen_tmp").value= curso['ruta_imagen_tmp'];
+
            
         },
         error: function( jqXHR, textStatus, errorThrown ) 
@@ -833,11 +913,11 @@ function modificar_curso(id)
 
 function modificar_estudiante_curso(id)
 {
-    $('#resultado').addClass('hidden');
+    
     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_estudiante_curso.php";
+     var v_controlador ="../ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -852,8 +932,8 @@ function modificar_estudiante_curso(id)
         success: function(data)
         {
        console.log("\n!! vamos a cargar los datos del cliente !!"+data);
-             llenar_combo_tablas("estudiante_curso",1);
-             llenar_combo_tablas("estudiante_curso",2);
+             llenar_combo_tablas("estudiante_curso",1,"editar");
+             llenar_combo_tablas("estudiante_curso",2,"editar");
              
             var estudiante_curso=JSON.parse(data); 
             console.log("curso_"+estudiante_curso);
@@ -887,7 +967,7 @@ function listar_estudiantes(id)
     
     var v_action = "listar_estudiantes";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_estudiante_curso.php";
+     var v_controlador ="../ctrl/controlador_estudiante_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -909,11 +989,12 @@ function listar_estudiantes(id)
                 
                 
                $('#lista_estudiantes'+id).text('');
-           var $log = $( "#lista_estudiantes"+id ),
+           var $log = $( "#lista_estudiantes"+id),
           str = data,
           html = $.parseHTML( str );
           
         $log.append( html );
+        
 
         // Gather the parsed HTML's node names
              
@@ -949,7 +1030,7 @@ function cargar_curso_input(id)
     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_curso.php";
+     var v_controlador ="../ctrl/controlador_curso.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -991,14 +1072,13 @@ function cargar_curso_input(id)
 
 function modificar_docente(id)
 {
-    $('#resultado').addClass('hidden');
-     $('.fecha_docente').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es"
-    });
+    $('#titulo_registrar').addClass('hide');
+    $('#titulo_editar').removeClass('hide');
+    $('#resultado').addClass('hide');
+    
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_docente.php";
+     var v_controlador ="../ctrl/controlador_docente.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -1023,6 +1103,7 @@ function modificar_docente(id)
             document.getElementById("sexo_docente").innerHTML= docente['sexo'];
             document.getElementById("licenciatura").value = docente['licenciatura'];
             document.getElementById("idusuario_docente").value = docente['idusuario'];
+            $('select').material_select();
            
         },
         error: function( jqXHR, textStatus, errorThrown ) 
@@ -1043,14 +1124,13 @@ function modificar_docente(id)
 }
 function modificar_estudiante(id)
 {
-    $('#resultado').addClass('hidden');
-     $('.fecha_estudiante').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es"
-    });
+    $('#titulo_registrar').addClass('hide');
+    $('#titulo_editar').removeClass('hide');
+    $('#resultado').addClass('hide');
+     
     var v_action = "editar";
     //cargar el controlador de la respectiva tabla
-     var v_controlador ="ctrl/controlador_estudiante.php";
+     var v_controlador ="../ctrl/controlador_estudiante.php";
     $.ajax({
         type: "POST",
         url: v_controlador,
@@ -1075,6 +1155,8 @@ function modificar_estudiante(id)
             document.getElementById("sexo_estudiante").innerHTML= estudiante['sexo'];
             document.getElementById("estado").innerHTML= estudiante['estado'];
             document.getElementById("idusuario_estudiante").value = estudiante['idusuario'];
+            $('select').material_select();
+            
            
         },
         error: function( jqXHR, textStatus, errorThrown ) 
@@ -1095,24 +1177,22 @@ function modificar_estudiante(id)
 }
 
 
-function llenar_combo_tablas(v_tabla,op)
+function llenar_combo_tablas(v_tabla,op,metodo)
 
 {
-	
+
 	alert ("Se va a cargar el listbox de la tabla : " + v_tabla);
 	var v_accion="cargar_listbox";
         var opcion=op;
 	$.ajax({
 		type: "POST",
-		url: "ctrl/controlador_"+v_tabla+".php",
+		url: "../ctrl/controlador_"+v_tabla+".php",
 		data:	{
                         action:v_accion,
                         tabla:v_tabla,
                         op:op,
-                        
-					
-                                       
-                                        
+                        metodo:metodo,
+                                      
 				},
 		dataType: 'text', 
 		beforeSend: function(x)
@@ -1123,16 +1203,22 @@ function llenar_combo_tablas(v_tabla,op)
 		{
 			console.log("valores regresados desde php : " + data);		
 			if(data != null)
+
 			{
 			   if(opcion==2){
-                               $('#combo2_'+v_tabla).append(data);
-                           }
-                           else if(opcion==1){
-                            $('#combo_'+v_tabla).append(data);
-                            }
-                            else if(opcion==3){
-                                $('#combo3_'+v_tabla).append(data);
-                            }
+               $('#combo2_'+v_tabla).append(data);
+               $('select').material_select();
+           }
+           else if(opcion==1){
+
+            $('#combo_'+v_tabla).append(data);
+            $('select').material_select();
+
+            }
+            else if(opcion==3){
+                $('#combo3_'+v_tabla).html(data);
+                $('select').material_select();
+            }
                             
 		}
             },

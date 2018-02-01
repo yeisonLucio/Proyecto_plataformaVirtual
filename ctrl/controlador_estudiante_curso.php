@@ -57,7 +57,7 @@ if(isset($_REQUEST['action']))
                       
                                     
                     //Ojo el utf8_decode para asegurarse de que los datos se codifique ne UTF8
-                    $arra=array("idestudiante_curso"=>$r->__GET('idestudiante_curso'),"estado"=>$estado,"idestudiante"=>$estudiante,"idcurso"=>$curso );
+                    $arra=array("idestudiante_curso"=>$r->__GET('idestudiante_curso'),"estado"=>$estado,"idestudiante"=>$estudiante,"idcurso"=>$curso,"curso_idcurso"=>$idcurso);
                     /*
                     $cliente=array('Id'=>       utf8_encode($r->__GET('Id')), 
                                     'Nombre'=>  utf8_encode($r->__GET('Nombre')),
@@ -77,7 +77,7 @@ if(isset($_REQUEST['action']))
                     
                 case 'listar':
                     $i=1;
-                    $stm="<table class='table table-hover table-responsive'><thead><tr class='active'><th>#</th><th >Nombre del estudiante</th><th>Curso</th><th>Estado</th><th>Opciones</th></tr></thead><tbody>";
+                    $stm="<table class='centered striped'><thead><tr><th>#</th><th >Nombre del estudiante</th><th>Curso</th><th>Estado</th><th>Opciones</th></tr></thead><tbody>";
                     
                     foreach( $model->ListarEstudiante_curso() as $r):
                         $idestudiante=$r->__GET('estudiante_idestudiante');
@@ -93,10 +93,11 @@ if(isset($_REQUEST['action']))
 
                         }
                         $stm.="<tr><td>".$i."</td>".$estudiante."".$curso."<td>".$estado."</td><td>
-                    <button type='button' class='btn btn-primary' id='btn_editar_estudiante_curso'  href='#ventana_estudiante_curso' onclick=javascript:modificar_estudiante_curso(".$r->__GET('idestudiante_curso').")  data-toggle='modal' >
-                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
-                    <a type='button' class='btn btn-danger' id='btn_eliminar_estudiante_curso' href='javascript:eliminar_estudiante_curso(".$r->__GET('idestudiante_curso').")'>
-                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+                    
+
+                    <a type='button' class='waves-effect waves-light btn-floating  blue accent-4 modal-trigger ' id='btn_editar_estudiante_curso'  href='#ventana_estudiante_curso' onclick=javascript:modificar_estudiante_curso(".$r->__GET('idestudiante_curso').")  ><i class='material-icons center'>mode_edit</i></a>
+
+                    <a type='button' class='waves-effect waves-light btn-floating  red accent-4' id='btn_eliminar_estudiante_curso' href='javascript:eliminar_estudiante_curso(".$r->__GET('idestudiante_curso').")'><i class='material-icons center'>delete</i></a>
         	
                 </td></tr>";
                     $i++;
@@ -111,7 +112,7 @@ if(isset($_REQUEST['action']))
                 case 'listar_estudiantes':
                     $i=1;
                     $cont=0;
-                    $stm="<table class='table table-hover table-responsive'><thead><tr class='active'><th>#</th><th >Nombre del estudiante</th><th>Curso</th><th>Estado</th><th>Opciones</th></tr></thead><tbody>";
+                    $stm="<table class='bordered centered'><thead><tr><th >Nombre</th><th>Curso</th><th>Estado</th><th>Opciones</th></tr></thead><tbody>";
                     
                     foreach( $model->Obtener_lista_estudiantes($_REQUEST['curso_idcurso']) as $r):
                         $idestudiante=$r->__GET('estudiante_idestudiante');
@@ -127,11 +128,15 @@ if(isset($_REQUEST['action']))
 
                         }
                         $cont++;
-                        $stm.="<tr><td>".$i."</td>".$estudiante."".$curso."<td>".$estado."</td><td>
-                    <button type='button' class='btn btn-primary' id='btn_editar_estudiante_curso'  href='#ventana_agregar_estudiante' onclick=javascript:modificar_estudiante_curso2(".$r->__GET('idestudiante_curso').");javascript:cargar_curso_input(".$r->__GET('curso_idcurso').");  data-toggle='modal' >
-                        <span class='sr-only'>Editar </span> <span class='glyphicon glyphicon-pencil'></span></button>
-                    <a type='button' class='btn btn-danger' id='btn_eliminar_estudiante_curso' href='javascript:eliminar_estudiante_curso2(".$r->__GET('idestudiante_curso').", ".$r->__GET('curso_idcurso').")'>
-                        <span class='sr-only'>Eliminar </span><span class='glyphicon glyphicon-remove'></span></a>
+                        $stm.="<tr>".$estudiante."".$curso."<td>".$estado."</td><td>
+
+
+                            <a href='#ventana_estudiante_curso2' onclick=javascript:modificar_estudiante_curso2(".$r->__GET('idestudiante_curso').");javascript:cargar_curso_input(".$r->__GET('curso_idcurso')."); class='btn-floating  modal-trigger' id='btn_editar_estudiante_curso2'><i class='material-icons'>mode_edit</i></a>
+
+                            <a href='javascript:eliminar_estudiante_curso2(".$r->__GET('idestudiante_curso').", ".$r->__GET('curso_idcurso').")' class='btn-floating' id='btn_eliminar_estudiante_curso2' ><i class='material-icons'>delete</i></a>
+
+
+                    
         	
                 </td></tr>";
                     $i++;
@@ -148,6 +153,7 @@ if(isset($_REQUEST['action']))
                     
                         $tabla = $_POST['tabla'];
                         $op=$_POST['op'];
+                        $metodo=$_POST['metodo'];
 
 
                         switch($tabla)
@@ -159,7 +165,14 @@ if(isset($_REQUEST['action']))
                                     $arreglo=$model->obtenercombo_estudiantes();
 
                                         if (count($arreglo) > 0) {
-                                        $strCadena = " <option>--Seleccionar estudiante--</option>";
+                                             if($metodo=="editar"){
+                                        $strCadena = "<option disabled>Seleccionar estudiante</option>";
+
+                                    }else{
+                                         $strCadena = "<option disabled selected>Seleccionar estudiante </option>";
+
+                                    }
+
                                             foreach ($arreglo as $item){
 
                                             $strCadena .= "<option value='".$item->idestudiante."'>".$item->nombre." ".$item->apellido."</option>";
@@ -174,7 +187,13 @@ if(isset($_REQUEST['action']))
                                         $arreglo=$model->obtenercombo_cursos();
 
                                         if (count($arreglo) > 0) {
-                                        $strCadena = " <option>--Seleccionar curso--</option>";
+                                             if($metodo=="editar"){
+                                                $strCadena = "<option disabled>Seleccionar curso</option>";
+
+                                             }else{
+                                                 $strCadena = "<option disabled selected>Seleccionar curso</option>";
+
+                                            }
                                             foreach ($arreglo as $item){
 
                                             $strCadena .= "<option value='".$item->idcurso."'>".$item->nombre."</option>";
